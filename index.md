@@ -1,8 +1,12 @@
 ---
 title: Uitgangspunten integratie NEN 2767-4 & IMBOR
+header:
+  overlay_color: "#b1501f"
+  overlay_filter: "0.3"
+  tagline: "Een werkbare, herleidbare methode om concepten uit NEN 2767-4 te integreren met IMBOR"
 ---
 
-**Status:** VOORSTEL 
+**Status:** VOORSTEL
 {: .notice--warning}
 
 Dit document beschrijft de uitgangspunten voor een werkbare, herleidbare methode om concepten uit NEN 2767-4 op te nemen in IMBOR, en te verankeren in de modelleerpatronen van NEN 2660-2:2022.
@@ -21,11 +25,12 @@ Het project dat door NEN & CROW samen ondernomen wordt bestaat uit twee samenhan
 De klassen uit beide standaarden worden veel gebruikt in beheer en assetmanagement. Ze overlappen sterk, maar hun definities en benamingen sluiten niet op elkaar aan. De integratie moet leiden tot één eenduidige set klassen die in de hele sector is afgestemd. Waar volledige integratie niet mogelijk is, worden de klassen op elkaar afgestemd. De mapping kan ook laten zien dat klassen uit NEN 2767-4 geen toegevoegde waarde meer hebben. Zulke klassen kunnen vervallen of worden vervangen door andere of nieuwe klassen. Bij het mappen wordt per klasse ook vastgesteld of die functioneel is (wat moet het doen?) of technisch (waaruit bestaat het?). Volgens NEN 2660-2 sluiten deze twee elkaar uit. Ze mogen daarom niet in dezelfde specialisatiehiërarchie terechtkomen.
 
 ### Een typische decompositie voor conditiemeting in IMBOR, herzien volgens NEN 2660
-De klassen in IMBOR krijgen een typische decompositie die gebaseerd is op NEN 2767-4. Deze decompositie is bedoeld voor conditiemeting binnen assetmanagement.Bij het opnemen in IMBOR wordt de bestaande structuur van NEN 2767-4 bijgewerkt volgens de inzichten van NEN 2660. De driedeling Beheerobject–Element–Bouwdeel uit NEN 2767-1 blijft daarbij behouden als indeling in niveaus. De structuur bevat wel weeffouten in de modellering. Die worden gecorrigeerd:
-- Functioneel en technisch door elkaar. In NEN 2767-4 is een element doorgaans functioneel gedefinieerd, op basis van de verlangde functie. Een bouwdeel is doorgaans technisch gedefinieerd, naar samenstelling of constructiewijze. Volgens NEN 2660-2 is de overgang van element naar bouwdeel daarom eigenlijk geen 'hasPart'-relatie. Het is een implementatierelatie (isImplementedBy): het element wordt geïmplementeerd door één of meer bouwdelen.
+De klassen in IMBOR krijgen een typische decompositie die gebaseerd is op NEN 2767-4. Deze decompositie is bedoeld voor conditiemeting binnen assetmanagement. Bij het opnemen in IMBOR wordt de bestaande decompositie van NEN 2767-4 bijgewerkt volgens de inzichten van NEN 2660. De driedeling Beheerobject–Element–Bouwdeel uit NEN 2767-1 blijft daarbij behouden als indeling in niveaus. De decompositie bevat wel weeffouten in de modellering. Die worden gecorrigeerd:
+- Functioneel en technisch door elkaar. In NEN 2767-4 is een element doorgaans functioneel gedefinieerd, op basis van de verlangde functie. Een bouwdeel is doorgaans technisch gedefinieerd, naar samenstelling of constructiewijze. Volgens NEN 2660-2 is de overgang van element naar bouwdeel daarom eigenlijk geen `nen2660:hasPart`-relatie. Het is een implementatierelatie (`nen2660:isImplementedBy`): het element wordt geïmplementeerd door één of meer bouwdelen.
 - Specialisaties gemodelleerd als decompositie. Veel 'decomposities' zijn in werkelijkheid specialisaties. Een voorbeeld is "Kabel hasPart Signaalkabel". Dat is een specialisatierelatie en geen 'onderdeel van'-relatie.
 
-> De hasPart-relatie zelf is in NEN 2660-2 eenduidig. Welke decompositie je maakt, hangt wel af van het **doel** en het **perspectief**. Daarom wordt de typische decompositie in IMBOR uitdrukkelijk vastgelegd als decompositie voor conditiemeting. Sommige partijen kiezen ervoor om middels deze decompositie ook hun areaal in te delen. Zo ondersteunt ze ook het proces van instandhouding.
+>De hasPart-relatie zelf is in NEN 2660-2 eenduidig. Welke decompositie je maakt, hangt wel af van het **doel** en het **perspectief**. Daarom wordt de typische decompositie in IMBOR uitdrukkelijk vastgelegd als decompositie voor conditiemeting. Sommige partijen kiezen ervoor om middels deze decompositie ook hun areaal in te delen. Zo ondersteunt ze ook het proces van instandhouding.
+{: .notice--warning}
 
 ### Samenhang en werkwijze
 
@@ -39,7 +44,7 @@ Met dit project streven we naar:
 
 *Één eenduidige set klassen in IMBOR, waar mogelijk geïntegreerd met NEN 2767-4 en anders daarop afgestemd; een typische decompositie voor conditiemeting binnen assetmanagement, opgenomen in IMBOR, gebaseerd op NEN 2767-4 en gemodelleerd volgens NEN 2660.*
 
-Op deze manier kunnen we bij de uitwisseling van assetgegevens voor conditiemeting zo veel mogelijk dezelfde klassen en dezelfde structuur gebruiken. 
+Op deze manier kunnen we bij de uitwisseling van assetgegevens voor conditiemeting zo veel mogelijk dezelfde klassen en dezelfde structuur gebruiken.
 
 **Functionele decompositie (buiten scope)**
 In de markt is ook behoefte aan andere decomposities dan die voor conditiemeting, bijvoorbeeld voor Systems Engineering (SE), voor het ontwerpen en bouwen van assets en voor beslissingen over amoveren. Daarvoor is een diepere functionele decompositie nodig. Een functionele decompositie die geschikt is voor SE bestaat nog niet. Ze heeft waarschijnlijk meer dan drie lagen en verschilt per asset of organisatie.
@@ -50,130 +55,77 @@ Dit valt buiten de scope van dit project. Het resultaat van dit project, eenduid
 
 ---
 
-## 3. Uitgangspunten
+## 3. Terminologie en uitgangspunten
 
-**U1: Opnemen, niet per se als klasse.** De concepten uit NEN 2767-4 worden zoveel mogelijk opgenomen in IMBOR. "Opnemen" kent meerdere vormen: twee concepten die **samenvallen** (integreren tot één concept), een **subklasse**, een **verschijningsvorm/domeinwaarde** op een instantieerbare klasse, een **deel-rol** (`heeftDeel`-constraint), of een **materiaal** in de materie-tak. De eis is dat elk in-scope concept een expliciete, herleidbare representatie of mapping krijgt, niet dat elk concept een eigen klasse wordt.
+### Terminologie
+We gebruiken een klein aantal termen consistent:
 
-**U2: De assen zijn disjunct (NEN 2660-2).** De asparen `ReeelObject`/`RuimtelijkGebied` (§6.2), functioneel/technisch (§6.4) en gepland/gerealiseerd (§6.5) zijn in de NEN 2660-ontologie vastgelegd als `owl:disjointWith`. Een klasse kan _niet aan beide zijden van een as hangen_. Waar bronconcepten op verschillende aszijden vallen, is daarom een **relatie** nodig, geen subklasse.
-
-**U3: Classificeren op een as is optioneel (NEN 2660-2 §6.6).** Is een dimensie niet relevant of niet eenduidig te bepalen, dan volstaat het generieke concept (`FysiekObject` resp. `Entiteit`) zonder keuze. Forceer geen keuze waar die niets toevoegt, dat levert schijnprecisie op. _Noteer een onbepaalde as als open vraag._
-
-**U4: Betekenis vóór representatie.** Bepaal eerst wát een concept betekent en hoe het zich tot een IMBOR-concept verhoudt; kies pas daarna hoe je het modelleert. Zo voorkom je dat een modelleergemak (bv. "geen eigen attributen") een betekenisoordeel vervangt.
-
-**Terminologie.** We gebruiken *(bron)concept* als neutrale verzamelterm voor een te classificeren eenheid uit NEN 2767-4, zolang nog niet vaststaat hóe die in IMBOR landt (klasse, subklasse, domeinwaarde, deel-rol of materiaal). Waar een `skos:Concept` wordt bedoeld, staat dat expliciet.
+- **(bron)concept**: een te beoordelen eenheid uit NEN 2767-4 (een beheerobject, element of bouwdeel) of IMBOR. Neutraal: het zegt nog niets over de uitkomst.
+- **klasse**: een concept kan een klasse worden na classificatie in IMBOR, of een bestaande IMBOR-klasse.
+- **relatie**: een verbinding tussen concepten (`hasPart`, `isImplementedBy`, `subClassOf`, `isBegrensdDoor`, …).
+- **betekenisrelatie**: de mate van overeenkomst tussen een NEN 2767-4-concept en een IMBOR-concept, uitgedrukt met een SKOS-predicaat (`exactMatch`, `narrowMatch`, `broadMatch`, `closeMatch`, of geen tegenhanger).
+- **decompositie**: het geheel van concepten met hun `hasPart`-relaties.
+- **NEN-niveau**: beheerobject, element of bouwdeel.
 {: .notice--info}
 
----
+### Uitgangspunten
 
-## 4. Het classificatieproces in overzicht
-
-De regels bouwen op elkaar voort. De redeneervolgorde is **{Stap 0, a, b} → c → d/e**:
-
-| Stap       | Vraag                                        | Resultaat                                                        |
-|------------|----------------------------------------------|------------------------------------------------------------------|
-| **0** (§5) | Wat voor soort concept is dit?                | objecttype / deel-rol / materiaal / waarde                       |
-| **a** (§6) | Ruimtelijk of reëel?                         | aszijde (of onbepaald)                                           |
-| **b** (§7) | Functioneel of technisch?                    | aszijde (of onbepaald)                                           |
-| **c** (§8) | Welke betekenisrelatie, welke representatie? | samenvallen / subklasse / domeinwaarde / relatie / nieuwe klasse |
-| **d** (§9) | Welke naam?                                  | prefLabel, altLabel, notation                                    |
-| **e** (§10) | Welke definitie?                             | geharmoniseerde `skos:definition`                                |
-
-**Stap 0 bepaalt óf een concept überhaupt de assen en regel c in gaat.** De assen a en b zijn _onafhankelijke (orthogonale)_ dimensies; samen vormen ze het profiel waarmee regel c beslist of een subklasse is toegestaan.
+- **U1: Opnemen waar mogelijk, niet persé als klasse.** De concepten uit NEN 2767-4 worden zoveel mogelijk opgenomen in IMBOR. "Opnemen" kent meerdere vormen: twee concepten die **samenvallen** (integreren tot één), een **subklasse**, een **verschijningsvorm** op een instantieerbare klasse, een **onderdeel** (`hasPart`), of een **materiaal** in de materie-tak. De wens is dat elk in-scope concept een expliciete, herleidbare representatie of mapping krijgt, niet dat elk concept een eigen klasse wordt.
+- **U2: De ALIM-dimensies zijn disjunct (NEN 2660-2).** De dimensies ruimtelijk/reëel (§6.2), functioneel/technisch (§6.4) en gepland/gerealiseerd (§6.5) zijn in de NEN 2660-ontologie vastgelegd als disjunct. Een klasse kan _niet aan beide zijden van een dimensie hangen_. Waar bronconcepten op verschillende dimensiezijden vallen, is daarom een **relatie** nodig, geen subklasse.
+- **U3: Classificeren op een dimensie is optioneel (NEN 2660-2 §6.6).** Is een dimensie niet relevant of niet eenduidig te bepalen, dan volstaat het generieke concept (`FysiekObject` resp. `Entiteit`) zonder keuze. Forceer geen keuze waar die niets toevoegt, dat levert schijnprecisie op. _Noteer een onbepaalde dimensie als open vraag._
+- **U4: Betekenis vóór representatie.** Bepaal eerst wát een concept betekent en hoe het zich tot een IMBOR-klasse verhoudt; kies pas daarna hoe je het modelleert. Zo voorkom je dat een modelleergemak (bv. "geen eigen attributen") een betekenisoordeel vervangt.
+- **U5: Taxonomie vóór decompositie.** Bepaal eerst welke klassen er zijn en pas daarna hoe ze samenhangen. Hiermee importeren we de modelleringsfouten uit de NEN 2767-4-decompositie niet mee in IMBOR, en wordt de herziene decompositie een resultaat op basis van bewijs in plaats van een overname.
+- **U6: De 'conditiemeting-payload' blijven herleidbaar.** Belang, Materiaalsoort en Gebrek (die noemen we payload) moeten na de herinrichting een geldig ankerpunt hebben. Elke wijziging aan een concept of relatie krijgt daarom een expliciete payload-bestemming (stap 3).
 
 ---
 
-## 5. Stap 0: Wat voor soort concept is dit?
+## 4. Het proces in vijf stappen
 
-Bepaal eerst welk van vier soorten een NEN 2767-4-concept is. Dit scheidt specialisatie (is-een-specialisatie) van decompositie (deel-van). Dit zijn de twee dimensies die NEN 2767-4 nu door elkaar haalt.
+We werken van eenvoudig naar complex: eerst kijken we alleen naar de losse concepten (welke klassen zijn het?), en pas daarna naar de decompositie eromheen (hoe hangen ze samen?). Zo nemen we de modelleringsfouten uit de oude decompositie niet mee IMBOR in (zie U5).
 
-1. **Zelfstandig objecttype**: bestaat op zichzelf en is te classificeren (brug, bord, boom). → door naar a, b, c.
-2. **Deel-rol / positie in een geheel**: bestaat vooral *als deel van* iets anders ("laag ván een verharding", "deel ván een landhoofd"); vaak herkenbaar aan een definitie die begint met "deel van …". → modelleer als getypeerde `heeftDeel`-constraint op het geheel, niet als losse is-een-klasse.
-3. **Materiaal / materie**: een stof, geen object (asfaltbeton, zand, staal). → hoort in de materie-tak (NEN 2660-2 §6.3: `HomogeenMengsel`, `Bouwstof`).
-4. **Waarde van een eigenschap**: onderscheidt zich alleen door de waarde van één kenmerk. → domeinwaarde (regel c, uitkomst 5).
+| Stap | Wie | Wat gebeurt er |
+|---|---|---|
+| **1. Concepten op IMBOR leggen** | inhoudelijke werkgroep | Kijk per concept: bestaat dit al in IMBOR, en is het ruimtelijk/reëel en functioneel/technisch? |
+| **2. Decompositie ernaast leggen** | inhoudelijke werkgroep | Leg de 'oude' NEN-decompositie over de geplaatste concepten en kijk waar het wringt. |
+| **3. Decompositie bijwerken** | inhoudelijke werkgroep | Stel per concept en per relatie voor wat ermee moet gebeuren (zie de beslistabellen hieronder). |
+| **4. Samenvoegen en controleren** | modelleur (werkgroep Methodiek) | Voeg de resultaten van de vier werkgroepen samen, stem ze op elkaar af en controleer ze. |
+| **5. Aanhaken op IMBOR** | IMBOR-modelleurs | Weeg de nieuwe decompositie af tegen een eventueel al bestaande decompositie in IMBOR. |
 
-> Veel concepten zijn kandidaat voor meerdere categorieën (een deel-rol ís vaak ook een objecttype). Beslissende vraag: heeft het concept **zelfstandige betekenis buiten het geheel**? Zo ja → objecttype (1) met daarnaast een deel-relatie; zo nee → puur deel-rol (2). Leg de keuze vast.
+**Waar we beginnen.** Het startpunt ligt al klaar voor de eerste pilotfase: de 80-20-lijst bevat per werkgroep de geselecteerde beheerobjecten, elementen en bouwdelen, met hun definities en hun onderlinge relaties. Die lijst is het vertrekpunt voor stap 1 en het vergelijkingspunt voor stap 2.
 
-### Toets: is een bestaande `hasPart` eigenlijk een specialisatie?
-
-Een van de weeffouten in NEN 2767-4 is dat **specialisaties als decompositie zijn gemodelleerd**. Toets daarom bij elke bestaande `hasPart`-relatie uit de bron of het werkelijk een deel-geheel-relatie is, of eigenlijk een is-een-relatie.
-
-- *Toets:* vul in "X is een **onderdeel van** Y" versus "X is een **soort** Y". Een `Signaalkabel` is een *soort* `Kabel`, geen *onderdeel van* een kabel → dit is een **specialisatie** (`rdfs:subClassOf`), geen `heeftDeel`.
-- Gevolg: zo'n relatie wordt gecorrigeerd naar een subklasse-relatie en het concept gaat als objecttype (categorie 1) door naar a, b, c. Het blijft dus *niet* staan als deel-rol.
-
-Dit is de tegenhanger van categorie 2: daar herken je een echt deel dat ten onrechte een eigen is-een-klasse zou krijgen; hier herken je een echte specialisatie die ten onrechte als deel is gemodelleerd.
+>*De oude NEN 2767-4-decompositie en een eventueel al bestaande decompositie in IMBOR zijn met een ander doel en vanuit een ander perspectief gemaakt.* We zetten ze naast elkaar, niet door elkaar. Hoe ze zich uiteindelijk tot elkaar verhouden, bepalen de IMBOR-modelleurs later (stap 5).
+{: .notice--warning}
 
 ---
 
-## 6. Regel a: Discreet of ruimtelijk?
+### Stap 1: Concepten op IMBOR leggen
 
-### Criterium
-Classificeer een objecttype op de as **ruimtelijk vs. reëel** (NEN 2660-2 §6.2):
+Stap 1 stelt per concept **drie dingen** vast. De uitkomst is een mapping waarin alle NEN-concepten beoordeeld zijn en hun betekenisrelatie naar de IMBOR-concepten kennen.
 
-- **Reëel object** = tastbaar (massa/materiaal, aan te raken). Binnen reëel: `DiscreetObject` (vormvast; het normale geval voor beheerobjecten) vs. `HoeveelheidBulkmaterie` (niet-vormvast).
-  - *Toets:* "Kan ik het aanraken en heeft het een vaste vorm?" → ja = `DiscreetObject`.
-- **Ruimtelijk gebied** = niet-direct tastbaar, gedefinieerd door begrenzing/inhoud (bv. rijstrook, profiel van vrije ruimte, een ruimte in een gebouw).
-  - *Toets:* "Is het een afgebakende ruimte/zone zonder eigen materiaal?" → ja = `RuimtelijkGebied`.
+*Wát een concept wordt (subklasse, verschijningsvorm, onderdeel, een relatie, of vervallen) komt pas in stap 3.*
 
-Veel inspecteerbare onderdelen zijn een tastbaar `DiscreetObject`, maar "inspecteerbaar" is géén bewijs van discreetheid (ook bulk of ruimte is inspecteerbaar). Beoordeel op vormvastheid/tastbaarheid, niet op inspecteerbaarheid. Ruimtelijke gebieden komen vooral op aan de netwerk-/wegindelingskant (wegvak, rijstrook).
+>**Dit is voorlopig.** Een concept dat hier netjes mapt, kan in stap 3 alsnog een verschijningsvorm blijken of vervallen. Voorbeeld: Onderlaag en Deklaag mappen allebei als `narrowMatch` op `Constructielaag`; pas in stap 3 blijkt dat het laagposities (waarden) zijn.
+{: .notice--info}
 
-### a-i: Relatie in plaats van subklasse
-Ruimtelijk en reëel zijn `owl:disjointWith` (U2): een ruimtelijk gebied is nooit een subklasse van een discreet object (of andersom). Valt het bronconcept tastbaar maar het IMBOR-concept ruimtelijk (of omgekeerd), leg dan een relatie (exacte NEN 2660-2-predicaten, Engelse term uit bijlage A tussen haakjes):
+#### Vaststelling 1: Ruimtelijk of reëel?
 
-- **`isBegrensdDoor`** (`isBoundBy`): een `RuimtelijkGebied` wordt begrensd door een reëel object. Dit is de koppeling ruimte↔object. *Niet verwarren* met `heeftBegrenzing` (`hasBoundary`), dat naar een **geometrische** entiteit wijst.
-- **`bevat`** (`contains`): een `RuimtelijkGebied` bevat de reële objecten die zich erin bevinden.
+- **Reëel** = tastbaar (massa/materiaal). Binnen reëel: `DiscreetObject` (vormvast; het normale geval) of `HoeveelheidBulkmaterie` (niet-vormvast). *Toets:* "kan ik het aanraken en heeft het een vaste vorm?"
+- **Ruimtelijk** = niet-direct tastbaar, bepaald door begrenzing of inhoud (rijstrook, profiel van vrije ruimte). *Toets:* "is het een afgebakende ruimte of zone zonder eigen materiaal?"
 
-Twee kanttekeningen: (1) een as-conflict betekent niet automatisch dat één van deze relaties geldt; eerst betekent het dat subklasse is uitgesloten; welke relatie past vergt eigen analyse. (2) Ook bij een relatie krijgt het bronconcept nog een eigen plaats in de taxonomie aan zijn eigen aszijde.
+"Inspecteerbaar" is géén bewijs van reëel/discreet (ook bulk of ruimte is inspecteerbaar). Beoordeel op vormvastheid en tastbaarheid. Ruimtelijke concepten zitten vooral aan de netwerk- en wegindelingskant (wegvak, rijstrook). Voor meer informatie wordt naar NEN 2660-2 §6.2 verwezen.
 
-### a-ii: Fallback bij een onbepaalde as
-Laat de brondefinitie beide zijden toe, plaats het concept dan onder het generieke `FysiekObject` zonder as-keuze (U3) en noteer de onbepaalde as als open vraag. Forceer geen keuze.
+*Bij twijfel:* laat de dimensie open, plaats het concept onder het generieke `FysiekObject` en noteer het als open vraag (U3).
 
-### Onderbouwing
-NEN 2660-2 §6.2, uitgewerkt in NPR 4660:2026 §6 (praktijkvoorbeeld wegverharding): de weg wordt vanuit **twee invalshoeken naast elkaar** gemodelleerd: ruimtelijk (schaalniveaus Wegment → … → Wegvak → Rijstrook als subtype van `RuimtelijkGebied`, via `heeftDeel`; bepaalt op welk niveau onderhoud plaatsvindt) en reëel (`Wegconstructie` als verzameling `DiscreetObject` + `Materie`, tot de `Uitvoeringseenheid`, het punt waar niet-vormvaste `HoeveelheidBulkmaterie` een vormvast `DiscreetObject` wordt). De wegbeheerder kijkt ruimtelijk, de wegenbouwer constructief; de twee worden door `isBegrensdDoor`/raakvlak gekoppeld, niet door subklasse.
+#### Vaststelling 2: Functioneel of technisch?
+- **Functioneel** = wat het moet dóén, welke functie het vervult ("blackbox"). Herkenbaar aan namen op `-systeem`, `-voorziening`, `-ing`.
+- **Technisch** = waarvan het gemaakt is of hoe het is uitgevoerd ("whitebox"). Herkenbaar aan namen op `-werk`, `-constructie`, `-installatie`. *Toets:* "beschrijf ik wat het moet dóén, of waarvan het gemaakt is?"
 
-### Voorbeeld
-**Onderlaag** (NEN 2175) is tastbaar en vormvast → `DiscreetObject`; het IMBOR-concept `Constructielaag` is eveneens discreet → zelfde aszijde, geen as-conflict (de wrijving zit bij regel c). Ter contrast is de IMBOR-klasse `Wegas`/`Rijbaan` ruimtelijk; zou een reëel bronconcept daartegenaan moeten, dan is `isBegrensdDoor` het patroon, geen subklasse.
+Verwar de *functionele dimensie* (hier, per concept) niet met de *functionele rol* van een niveau (een beheerobject, element of bouwdeel speelt een rol binnen een geheel). NEN 2660-2 §6.4 waarschuwt dat normen functioneel en technisch vaak onterecht in één hiërarchie mengen; dat corrigeren we.
 
----
+*Bij twijfel:* laat de dimensie open (net zoals vaststelling 1).
 
-## 7. Regel b: Functioneel of technisch?
-
-### Criterium
-Classificeer op de as **functioneel vs. technisch** (NEN 2660-2 §6.4):
-
-- **Functionele entiteit** ("blackbox") = wat doet het, welke functie vervult het. Herkenbaar aan naamgeving op `-systeem`, `-voorziening`, `-faciliteit`, `-ing`, en aan een **rolgebonden** typering (tijd-/plaatsafhankelijk: iets *speelt* de rol).
-- **Technische entiteit** ("whitebox") = hoe is het gemaakt/opgebouwd/gematerialiseerd. Herkenbaar aan naamgeving op `-werk`, `-constructie`, `-installatie`, en aan een **invariante** typering (tijd-/plaatsonafhankelijk: het *is* het).
-  - *Toets:* "Beschrijf ik wat het moet dóén (functie), of waarvan het gemaakt is / hoe het is uitgevoerd (constructie)?"
-
-De huidige NEN 2767-4 mengt functioneel en technisch door elkaar (NEN 2660-2 §6.4 waarschuwt dat bestaande normen dit vaak onterecht in één taxonomie doen). Deze regel is de correctie: classificeer elk concept schoon als functioneel óf technisch.
-
-**Twee betekenissen van "functioneel" die niet verward mogen worden:**
-- *Functionele entiteit* (de as b): de blackbox-beschouwing van een objecttype. Dit is wat je per concept classificeert.
-- *Functionele rol / schaalniveau*: NEN 2660-2 §6.4 noemt de decompositieniveaus beheerobject/element/bouwdeel/product "typisch functionele rollen" (iets *speelt de rol van* element binnen een geheel). Dit gaat over de laag-indeling, niet over de as-classificatie van een afzonderlijk concept.
-
-### b-i: Relatie in plaats van subklasse
-Functioneel en technisch zijn `owl:disjointWith` (U2): een functionele entiteit kan geen subklasse van een technische zijn (of omgekeerd); dat levert een lege klasse op. Valt het bronconcept technisch en het IMBOR-concept functioneel (of omgekeerd), gebruik dan:
-
-- **functioneel object `isGeimplementeerdDoor` (`isImplementedBy`) technisch object**: het technische is "een oplossing voor" het functionele; er kunnen meerdere oplossingen zijn (FUTS / "hamburgermodel"). Richting: de functionele entiteit wordt geïmplementeerd dóór de technische.
-
-Een invariante 1-op-1-rol modelleer je met `isGeimplementeerdDoor` (eventueel cardinaliteit 1), **niet** met een subklasse: zolang de superklassen disjunct zijn, is een subklasse dwars over de as inconsistent.
-
-### Let op bij de NEN-niveaus
-Een "bouwdeel" is in NEN 2767-4 per definitie **technisch** omschreven (naar samenstelling/constructiewijze), een "element" juist **functioneel** (naar verlangde functie). De NEN-koppeling "element bestaat uit bouwdeel" steekt dus de functioneel/technisch-as over; in NEN 2660-termen hoort dat een `isGeimplementeerdDoor`-relatie te zijn, geen `heeftDeel`. Juist dáár ontstaat de wrijving die b-i adresseert. Dit is precies de weeffout-correctie uit §1: de driedeling Beheerobject–Element–Bouwdeel blijft behouden, maar de overgang element→bouwdeel wordt als implementatierelatie gemodelleerd.
-
-### Onderbouwing
-NEN 2660-2 §6.4 (blackbox/whitebox, `owl:disjointWith`, FUTS, `isGeimplementeerdDoor`/`isImplementedBy`).
-
-### Voorbeeld
-**Landhoofd** (NEN 1326): NEN definieert het deels functioneel ("*zorgt voor* het dragen … en het keren van het grondlichaam", werkwoorden = functie), IMBOR deels technisch/topologisch ("ondersteuningsconstructie ter plaatse van de overgang"). Vatten beide zijden het op als technisch `Kunstwerkdeel`, dan is samenvallen mogelijk en worden de functies "dragen" en "keren" als expliciete `voertUit`-relaties vastgelegd (§10, e-i), niet in de klassehiërarchie. Blijkt de NEN-kant eigenlijk een functioneel *element* en de IMBOR-kant een technische klasse, dan is samenvallen verboden (disjunct) en is `isGeimplementeerdDoor` nodig. De aszijde van **beide** bronnen moet dus expliciet worden vastgesteld voordat "samenvallen" geldig is.
-
----
-
-## 8. Regel c: Betekenisrelatie en representatie
-
-De kernvraag bij het opnemen van een zelfstandig objecttype (stap 0, categorie 1). Beslis in **twee lagen** (U4): eerst de betekenisrelatie, dan de representatie.
-
-### Laag 1: Betekenisrelatie
-Bepaal de relatie tot het dichtstbijzijnde IMBOR-concept op basis van **instance-inclusie** (welke dingen vallen eronder), niet op basis van attributen. Leg vast met een SKOS/SSSOM-mappingpredicaat:
+#### Vaststelling 3: Bestaat het al in IMBOR?
+Zoek het dichtstbijzijnde IMBOR-concept en bepaal de betekenisrelatie. Kijk daarbij naar **welke objecten eronder vallen**, niet naar welke attributen het concept heeft:
 
 | Relatie | Predicaat | Betekenis |
 |---|---|---|
@@ -183,146 +135,234 @@ Bepaal de relatie tot het dichtstbijzijnde IMBOR-concept op basis van **instance
 | Partieel overlappend | `skos:closeMatch` / `relatedMatch` | overlap, geen van beide bevat de ander |
 | Geen tegenhanger | n.v.t. | concept ontbreekt aan de IMBOR-kant |
 
-### Laag 2: Representatiekeuze
-Kies op basis van laag 1 én de assen (a, b):
+Bij **geen tegenhanger**: noteer de beoogde **ouderklasse** in de IMBOR-taxonomie.
 
-1. **`exactMatch` → samenvallen** (één concept). Integreer tot één IMBOR-concept; harmoniseer naam/definitie (§9, §10). *Toets:* zou een beheerder beide als exact hetzelfde object registreren?
-2. **`narrowMatch` + eigen onderscheid → subklasse** onder het IMBOR-concept.
-3. **`broadMatch` → IMBOR-concept(pen) worden subklasse van het bronconcept**, of er is een nieuwe abstracte superklasse nodig. (Niet: bronconcept onder IMBOR persen.)
-4. **Partieel/overlappend → geen is-een-relatie**; leg een associatieve relatie of herverdeel/splits de concepten. Forceer geen subklasse.
-5. **Onderscheid is enkel een attribuutwaarde → verschijningsvorm/domeinwaarde** (met behoud van instance-identiteit, zie onder).
-6. **Geen tegenhanger → nieuwe klasse** (onder welke ouder, en wie beslist → §11).
-7. **As-conflict (a/b) → relatie** `isBegrensdDoor` resp. `isGeimplementeerdDoor` (a-i, b-i).
-8. **Geen toegevoegde waarde → vervalt.** Voegt het bronconcept niets toe aan IMBOR (het valt samen met een bestaand concept zonder eigen betekenis, attributen, relaties of constraints, of het is in de praktijk overbodig), dan krijgt het **geen eigen representatie** in IMBOR. Leg de NEN-code dan als `skos:notation`/`skos:exactMatch` vast bij het IMBOR-concept waarin het opgaat (traceerbaarheid), en markeer het bronconcept als vervallen met de reden. Dit is het geval dat de inleiding noemt: een NEN 2767-4-klasse die kan vervallen of worden vervangen.
+>**Wat stap 1 niet doet**: Geen representatiekeuze (subklasse, verschijningsvorm, vervallen), geen relaties, en niets met `hasPart`. Die beslissingen hebben de decompositie-context uit stap 2 en 3 nodig.
+{: .notice--warning}
 
-**Verbreed subklasse-criterium.** Een subklasse is gerechtvaardigd als het bronconcept eigen **attributen, relaties óf SHACL-constraints** toevoegt. Dat laatste is cruciaal voor NEN 2767: concepten onderscheiden zich daar vaak door **beperkingen** (welke materialen zijn toegestaan → welke gebreken van toepassing → welke delen toegestaan), niet door nieuwe attributen. "Geen eigen attributen" is dus géén voldoende reden om tot domeinwaarde te degraderen.
+### Stap 2: Decompositie vergelijken
 
-**Instance-identiteit bij domeinwaarde.** Een concept als domeinwaarde modelleren mag alleen als de individuele identiteit behouden blijft waar die nodig is. Een NEN-bouwdeel is per definitie het niveau waaraan gebreken, conditiescore en onderhoudshistorie hangen; dat vereist een **adresseerbare instantie**. De juiste constructie is: een instantie van een instantieerbare klasse (bv. `Constructielaag`) mét een classificerende domeinwaarde (bv. `constructielaagsoort = onderlaag`); dit is §6.11-patroon 1 (type-instantie), niet "geen klasse". Een kale attribuutwaarde op het geheel, zónder eigen instantie, kan geen conditiescore dragen en is dan ongeschikt.
+Leg de oude NEN-decompositie over de gemapte concepten (resultaat stap 1) en stel vast **waar het wringt**. Dit is nog diagnose; de beslissingen volgen in stap 3.
 
-### Onderbouwing
-NEN 2660-2 §6.11 (Typen) geeft drie onderling converteerbare patronen om type/waarde te modelleren: (1) relatie naar een type-instantie, (2) subklasse met een beperking, (3) "punning". Het is een **pragmatische richtlijn**, geen harde regel: subklassen zijn hanteerbaar bij vaste opsommingswaarden maar leiden tot subklasse-explosie als het onderscheid eigenlijk een waarde is; dan is een enumeratietype/domeinwaarde passender (`nen2660:EnumerationType`). De instance-inclusie-toets voor subklassen volgt uit de OWL-semantiek (subklasse = deelverzameling van instanties); attribuut-overerving is het *gevolg* van een correcte hiërarchie, niet het criterium.
+**Volgorde: eerst de concepten, dan pas de relaties.** Beoordeel in deze stap eerst *alle* concepten afzonderlijk, en ga daarna pas naar de relaties ertussen. De reden is dat een relatie altijd twee concepten verbindt: je kunt pas vaststellen of die relatie klopt of juist wringt wanneer beide uiteinden een uitkomst hebben. Van elk van de twee concepten moet dus al vaststaan op welk niveau het hoort, wat zijn dimensie is (ruimtelijk vs. reëel, functioneel vs. technisch) en hoe het op IMBOR mapt. Begin je andersom (bij de relaties) dan beoordeel je verbindingen waarvan de uiteinden nog kunnen verschuiven, en dat levert geen betrouwbare diagnose op.
 
-### Voorbeeld
-**Onderlaag** (NEN 2175): betekenisrelatie met `Constructielaag` = `narrowMatch` (een onderlaag ís een constructielaag), maar het onderscheidt zich alleen door **laagpositie**: een waarde. → **domeinwaarde** `constructielaagsoort = onderlaag` op een **instantie van `Constructielaag`**, die het adresseerbare inspectie-/conditiescore-subject blijft. Ter contrast **Verkeersbord** (NEN 1586): betekenisrelatie met `imbor:Verkeersbord` = `exactMatch`; het heeft eigen attributen (bordcode, reflectieklasse, bordafmeting) → een echte klasse → **samenvallen**.
+>**Hergebruik als signaal.** Een concept dat onder veel andere concepten hangt, is vrijwel zeker een echte zelfstandige klasse; een concept dat maar op één plek voorkomt, is een kandidaat om te vervallen of een verschijningsvorm te worden.
+{: .notice--info}
 
----
+Let bij het vergelijken op drie typische wrijvingen:
 
-## 9. Regel d: Eenduidige namen
+1. **Niveau klopt niet met de dimensie.** Een concept staat op het niveau 'element' maar is technisch, of op 'bouwdeel' maar is functioneel. Kandidaat om van niveau te verschuiven in stap 3.
+2. **Dimensieconflict tussen de twee bronnen.** Het NEN-concept en het dichtstbijzijnde IMBOR-concept vallen op verschillende zijden van een dimensie (ruimtelijk vs. reëel of functioneel vs. technisch). Dan is een subklasse uitgesloten en is een relatie nodig in stap 3.
+3. **Specialisatie verkleed als decompositie.** Een weeffout in NEN 2767-4 is dat specialisaties als `hasPart` zijn gemodelleerd. *Toets:* vul in "X is een **onderdeel van** Y" versus "X is een **soort** Y". Een `Signaalkabel` is een *soort* `Kabel`, geen *onderdeel van* een kabel → dus eigenlijk een specialisatie, geen `hasPart`.
 
-### Criterium
-Volg de naamgevingsconventies van NEN 2660-2 §8.4, aangevuld met IMBOR-praktijk:
-
-- **Betekenisvrije identificatie, betekenisvol label.** IMBOR identificeert concepten met een **UUID** (`imbor:` + UUID), niet met de naam. De naam is een label (`skos:prefLabel`), niet de sleutel. Homoniemen (zelfde naam, andere betekenis) kunnen náást elkaar bestaan; een naam mag veranderen zonder dat de identiteit wijzigt. *Let op:* een stabiele UUID maakt hernoemen veilig, maar **semantische wijzigingen niet**; verschuift de betekenis, dan hoort er een nieuw concept te komen, geen stil hergebruik van de UUID.
-- **Eén uniek voorkeurslabel per concept** (`skos:prefLabel`). De NEN-term wordt alleen `skos:altLabel` **als die hetzelfde concept aanduidt** (bij `exactMatch`); bij een smaller/breder/overlappend concept is de NEN-term geen synoniem. Voeg nooit dezelfde taal-literal toe als zowel `prefLabel` als `altLabel` (die zijn in SKOS disjunct).
-- **NEN-code als `skos:notation` met scheme-datatype**, bv. `"1326"^^nen2767:Code`, zodat NEN-codes niet te verwarren zijn met codes uit andere schema's. Bewaar scheme- en versiecontext, zeker als meerdere bronconcepten samenvallen.
-  - *Waar landt de notation:* IMBOR scheidt de **Vocabulaire** (SKOS-concepten) van de **Kern** (klassen/shapes). Leg vast of `altLabel`/`notation` op het `skos:Concept`, op de klasse, of op beide komen. Identificeert een NEN-code eigenlijk een **koppeltabel-rij** (ouder+kind-paar) i.p.v. een zelfstandig concept, dan hoort de code niet als notation op een klasse; toets dit per code (stap 0).
-- **Schrijfwijze (§8.4):** klasse-/objecttypenamen in CamelCase met hoofdletter; attribuut- en relatienamen met kleine letter (camelCase).
-- **Enkelvoud**, behalve bij groepsaanduidingen.
-- **Naamgeving als signaal, niet als bewijs.** De `-ing`/`-constructie`-heuristiek (regel b) helpt classificeren maar mag die classificatie nooit overrulen. Een naam die "constructie" zegt terwijl het functioneel is gemodelleerd (of omgekeerd) is een signaal om de classificatie te heroverwegen.
-- **Geen twee concepten met hetzelfde voorkeurslabel.** Bij een echte naamsbotsing (homoniem, bv. "Dek") disambigueren in het label (context tussen haakjes) of met een `skos:scopeNote`, niet in de UUID.
-
-### Onderbouwing
-NEN 2660-2 §8.4 (betekenisvolle namen vs. betekenisvrije codes; CamelCase/camelCase; enkelvoud) en §8.5 (annotatiebinding). SKOS: `prefLabel`/`altLabel` zijn disjunct; `notation` gebruikt bij voorkeur een scheme-specifiek datatype.
-
-### Voorbeeld
-**Fauna-uittreedplaats** (IMBOR, met koppelteken) vs. **Fauna uittreedplaats** (NEN-element 131, zonder): bij `exactMatch` één `skos:prefLabel` (IMBOR-schrijfwijze), de NEN-schrijfwijze als `skos:altLabel`, NEN-code als `"131"^^nen2767:Code`. **Leuning** (NEN 2192 ≈ IMBOR, woordelijk identiek) toont dat de naam gelijk kan zijn terwijl de machineleesbare koppeling (UUID + notation) nog gelegd moet worden.
+**Resultaat:** een diagnoselijst: per concept en per relatie de geconstateerde wrijving (of "geen wrijving").
 
 ---
 
-## 10. Regel e: Eenduidige definities
+### Stap 3: Decompositie herzien
 
-### Criterium
-- **Eén interne definitie per concept per taal** (`skos:definition`; projectafspraak conform NEN 2660-profiel). Bij samenvallen wordt één geharmoniseerde definitie vastgesteld; de andere herformulering wordt bewaard als bron (zie onder).
-- **Definieer naar genus-en-differentia:** benoem de ouderklasse plus wat dit concept ervan onderscheidt. De differentia is precies de reden dat het een subklasse is (regel c).
-- **Definitie en classificatie zijn consistent.** De definitie mag niet functioneel geformuleerd zijn als het concept technisch is gemodelleerd (of omgekeerd); ze weerspiegelt de keuzes uit a en b. Dit is nu juist een bron van NEN↔IMBOR-wrijving (Landhoofd, Fauna-uittreedplaats).
-- **Geen conditiemeting-/gebrekentaal in de objectdefinitie.** NEN-definities zijn soms geschreven vanuit het inspectiedoel ("constructie waaraan gebreken …"). Houd die inspectiecontext buiten de objectdefinitie.
-- **Herkomst traceerbaar.** Bewaar de oorspronkelijke NEN/NPR-definitietekst niet via `rdfs:isDefinedBy` (dat wijst naar een definiërende *resource*, niet naar een tekst), maar als `skos:scopeNote` of als apart **bronconcept** (eigen `skos:definition`) dat via `skos:exactMatch` aan het geharmoniseerde concept hangt.
-- **Licentie-aandachtspunt (checken).** Het letterlijk overnemen van NEN/NPR-definitieteksten in de open IMBOR-publicatie kan botsen met het **auteursrecht van NEN**. Vóór het kopiëren juridisch (laten) toetsen; eventueel parafraseren of alleen verwijzen.
+Kies op basis van de diagnose (stap 2) per concept en per relatie precies één uitkomst.
 
-### Onderbouwing
-NEN 2660-2 §8.5 (annotatiebinding: `skos:definition` textueel, `rdfs:isDefinedBy`, `skos:scopeNote`/`rdfs:comment`). "Eén definitie per taal" is een project-/profielkeuze, geen algemene SKOS-eis (SKOS beperkt alleen `prefLabel` tot één per taal).
+#### Beslistabel concepten
 
-### e-i: Functionele beschrijvingen expliciet maken in definities?
-Dit is een **expliciete keuze die wij voorleggen** (geen vaststaand voorstel).
+Per concept is er één uitkomst uit onderstaande tabel van toepassing.
 
-**Voorstel (onze voorkeur): ja, als relatie, niet (alleen) als proza.** Leg de functie(s) vast met de `voertUit`-relatie (`executes`, bereik = `Activiteit`/`Functie`, conform NEN 2660-2 §6.4; IMBOR gebruikt dit al met `sml:Function`) en laat de tekstdefinitie daarnaar verwijzen. Voordeel: de functie wordt machineleesbaar en toetsbaar, en je koppelt functioneel↔technisch netjes met `isGeimplementeerdDoor` (b-i) zonder de functie in de klassehiërarchie te verstoppen. *Let op het bereik:* `executes` wijst naar een activiteit/functie, niet naar een willekeurige resource; onderscheid een beoogde functie, een vereiste capaciteit en een feitelijk uitgevoerde activiteit. Onder OWL-punning volgt uit `Klasse voertUit Functie` niet automatisch dat elk individu die activiteit uitvoert; leg dat waar nodig als constraint vast.
+| Uitkomst | Wanneer |
+|---|---|
+| Blijft klasse op huidig niveau | match, dimensiezijde klopt met het niveau |
+| Verschuift van niveau (tussen beheerobject / element / bouwdeel) | de dimensiekeuze of de mapping spreekt het huidige niveau tegen |
+| Valt samen (met IMBOR- of andere NEN-klasse) | `exactMatch`, geen eigen onderscheid |
+| Wordt verschijningsvorm (classificerend attribuut) | onderscheidt zich alleen als variant, niet door eigen attributen, relaties of beperkingen |
+| Wordt materiaal (materie-tak) | is een stof, geen object |
+| Splitst in meerdere klassen | één NEN-term dekt twee betekenissen |
+| Vervalt | geen toegevoegde waarde naast IMBOR |
 
-**Alternatief: functies alleen in de tekstdefinitie.** Eenvoudiger, maar de functie blijft "opgesloten" in proza; niet queryable, en de functioneel↔technisch-koppeling moet elders worden gelegd.
+**Eigen klasse of verschijningsvorm?** Maak een concept niet te snel een verschijningsvorm omdat het "geen eigen attributen" heeft. Een concept verdient een eigen klasse zodra het zich onderscheidt door eigen **attributen, relaties óf beperkingen**. Dat laatste is in NEN 2767 vaak het geval: er zijn andere materialen toegestaan, en dus andere gebreken van toepassing, ook al heeft het concept geen extra attributen.
 
-**Afweging:** de meeste NEN 2767-4-wrijving (Landhoofd "dragen" + "keren"; element = functie) komt doordat functies impliciet in definities zitten. Ze expliciet als relatie modelleren lost dat structureel op en is in lijn met NEN 2660-2, maar kost meer modelleerwerk per concept.
+
+#### Beslistabel relaties
+
+Per bestaande `hasPart`-relatie is er één uitkomst uit de onderstaande tabel van toepassing.
+
+| Uitkomst | Wanneer |
+|---|---|
+| Blijft `hasPart` | echte deel-van, beide uiteinden zelfde dimensiezijde |
+| Wordt `subClassOf` | was eigenlijk een specialisatie (is-een), geen deel-van |
+| Wordt `isImplementedBy` | functioneel→technisch-overgang (o.a. element→bouwdeel) |
+| Wordt `isBegrensdDoor` / `bevat` | overgang ruimtelijk vs. reëel |
+| Verlegd | een uiteinde is samengevallen of verschoven |
+| Vervalt | een uiteinde vervalt, of de relatie is betekenisloos |
+
+**Waarom een relatie en geen subklasse (bij een dimensieconflict).** Vallen de twee uiteinden op verschillende zijden van een dimensie, dan is een subklasse niet mogelijk (U2: de dimensies zijn disjunct, dat zou een lege klasse opleveren). Dan geldt:
+- **ruimtelijk vs. reëel** → `isBegrensdDoor` (`isBoundBy`; een ruimtelijk gebied wordt begrensd door een reëel object) of `bevat` (`contains`).
+
+>Niet verwarren met `heeftBegrenzing`/`hasBoundary`, dat naar geometrie wijst.
+{: .notice--warning}
+
+- **functioneel vs. technisch** → `isGeimplementeerdDoor` (`isImplementedBy`): de functionele kant wordt geïmplementeerd door de technische (FUTS / "hamburgermodel").
+
+>Dit is ook de correctie op de element→bouwdeel-relatie uit §1.
+{: .notice--warning}
+
+Een dimensieconflict betekent niet automatisch dat zo'n relatie geldt; het sluit alleen de subklasse uit. Welke relatie past, vergt eigen afweging.
+
+#### Verschijningsvorm i.p.v. klasse
+IMBOR gebruikt een [classificerend attribuut](https://docs.crow.nl/imbor/techdoc/#classificerende-attributen) voor detailleringen van een objecttype die geen eigen informatiebehoefte hebben. In plaats van voor elke variant een aparte klasse te maken, worden de varianten waarden in één lijst bij de klasse. Het algemene classificerende attribuut heet `verschijningsvorm`; daarnaast bestaan objectspecifieke varianten (bijvoorbeeld `constructielaagsoort` op `Constructielaag`). Zo heeft de klasse `Band` een `verschijningsvorm` met waarden als *Trottoirband*, *Opsluitband* en *Parkeerband*.
+
+Een NEN 2767-concept kan zo'n waarde worden in plaats van een eigen klasse. Let op: de klasse zelf (bijvoorbeeld `Band`) blijft bestaan en blijft het object dat je vastlegt en inspecteert. Het classificerende attribuut zegt alleen *welke variant* het is; gebreken, conditiescore en onderhoudshistorie blijven aan het object hangen.
+
+#### Naam en definitie vastleggen
+Zodra de representatie vaststaat, leg je voor het concept de naam en definitie vast. Hoeveel werk dat is, hangt af van de gekozen uitkomst: bij **samenvallen** harmoniseer je label en definitie van beide bronnen tot één; bij een concept dat een **klasse blijft, een subklasse wordt of van niveau verschuift** controleer je of naam en definitie aan de regels voldoen; bij een **verschijningsvorm** gaat het om de naam en definitie van de waarde, niet van een klasse; bij **vervallen** is er niets vast te leggen.
+
+##### Eenduidige namen (NEN 2660-2 §8.4)
+- **Eén uniek voorkeurslabel per concept:** De NEN-term wordt een synoniem als die hetzelfde concept aanduidt (bij `exactMatch`); bij een smaller/breder/overlappend concept is de NEN-term geen synoniem.
+- **Schrijfwijze:** klasse-/objecttypenamen in CamelCase met hoofdletter; attribuut- en relatienamen in camelCase. **Enkelvoud**, behalve bij groepsaanduidingen.
+- **Naamgeving als signaal, niet als bewijs.** De `-ing`/`-constructie`-heuristiek helpt classificeren maar mag die nooit overrulen; een naam die "constructie" zegt terwijl het functioneel is gemodelleerd (of omgekeerd) is een signaal om te heroverwegen.
+- **Geen twee concepten met hetzelfde voorkeurslabel.** Bij een homoniem disambigueren in het label (context tussen haakjes).
+
+##### Eenduidige definities (NEN 2660-2 §8.5)
+- **Eén interne definitie per concept per taal**: Bij samenvallen wordt één geharmoniseerde definitie vastgesteld; de andere herformulering wordt bewaard als bron.
+- **Definieer naar genus-en-differentia:** benoem de ouderklasse plus wat dit concept ervan onderscheidt.
+- **Definitie en classificatie zijn consistent.** De definitie mag niet functioneel geformuleerd zijn als het concept technisch is gemodelleerd (of omgekeerd); ze weerspiegelt de dimensiekeuzes uit stap 1.
+- **Geen conditiemeting-/gebrekentaal in de objectdefinitie.** Houd de inspectiecontext buiten de objectdefinitie.
+
+#### Implicaties voor conditiemeting
+
+De conditiemeting-payload blijft herleidbaar. Met "payload" bedoelen we de drie dingen die NEN 2767-4 aan de decompositie hangt: **belang** (H/M/L), **materiaalsoort** en **gebrek**. Belang zit op de **relatie** element→bouwdeel, materiaalsoort hangt aan het **concept** bouwdeel, en gebrek aan de materiaalsoort. De conditiescore wordt gemeten op bouwdeelniveau.
+
+>De aansluiting op conditiemeting methodiek wordt in dit traject **bewaard, niet heringericht**. De conditiemeting blijft van NEN 2767; we zorgen alleen dat elk payload-element een geldig ankerpunt houdt als een concept of relatie verandert.
+{: .notice--info}
+
+1. **Materiaal + gebrek 'reizen' mee met het technische concept.** Waar het bouwdeel-concept ook landt (blijft klasse, wordt subklasse, verschuift van niveau, of wordt verschijningsvorm van een bestaande klasse), materiaal en gebrek blijven eraan hangen. Dit is waarom de regel uit stap 3 (de klasse zelf blijft bestaan en inspecteerbaar) hard is: zolang het object een eigen identiteit houdt, heeft de payload altijd een drager.
+2. **Belang reist mee met de relatie.** Belang is inherent contextueel (een bouwdeel kan met verschillend belang onder verschillende elementen voorkomen). Verandert de relatie element→bouwdeel van type (bv. naar `isImplementedBy`), dan verhuist het belang mee naar die nieuwe relatie.
+3. **Bij vervallen van een concept: payload expliciet heralloceren.** Valt een bouwdeel weg, dan gaat de payload bewust mee naar het concept waarin het opgaat, óf wordt bewust afgevoerd. Dit is een **verplicht veld in het beslis-record**: "waar gaat belang/materiaal/gebrek heen?".
+4. **Koppelpunt-register.** Per gewijzigd concept of gewijzigde relatie leg je vast waar de payload landt. Dat register is het bewijs dat de conditiemeting na herinrichting volledig herleidbaar is.
 
 ---
 
-## 11. Werkwijze voor de inhoudelijke groepen
+### Stap 4: Samenvoegen en controleren
 
-Om de vier groepen consistent te laten beslissen zonder een rigide beslisboom op te leggen:
+De vier inhoudelijke werkgroepen leveren **beslis-records**, geen kant-en-klare modelwijzigingen. In stap 4 brengt de modelleur, namens de werkgroep Methodiek, die vier opleveringen samen tot één voorstel en controleert dat op consistentie.
 
-- **Beslis-record per concept (verplicht).** Leg per bronconcept vast: stap 0-categorie, as a, as b (incl. "onbepaald"), betekenisrelatie (SKOS-predicaat), gekozen representatie, onderbouwing, open vragen, reviewer. Dit maakt elke keuze herleidbaar en vergelijkbaar, en maakt "onopgelost: nadere beslissing nodig" een **geldige uitkomst** in plaats van een gemiste stap.
-- **Kalibratieronde vooraf.** Laat alle vier de groepen eerst dezelfde **10–15 gedeelde/cross-cutting concepten** classificeren (bv. Leuning, Fundering, Verharding, Berm) en verzoen de verschillen centraal. Zo komen interpretatieverschillen vroeg boven en wordt de methode op de lastige gevallen getest (echte as-conflicten, `broadMatch`, herhaalde deel-rollen) die de vier voorbeelden in §12 nog niet dekken.
-- **Eigenaarschap van cross-cutting concepten.** Concepten die onder meerdere werkgroepen vallen (Leuning: Kunstwerken én Wegmeubilair) krijgen één eigenaar-werkgroep; de andere leveren input.
-- **Neutrale mapping eerst, materialisatie later.** Groepen leveren in eerste instantie **mappingrecords** (betekenisrelatie + voorgestelde representatie), niet direct taxonomie-wijzigingen. De materialisatie volgt pas na de bredere inrichtingsbesluiten. Zo blijven de groepen licht belast én worden geen keuzes vastgelegd die van die besluiten afhangen.
-- **Aanleverformaat en validatie.** Leg de beslis-records vast in een vast, machineleesbaar formaat, bij voorkeur een **SSSOM-mappingtabel** (Simple Standard for Sharing Ontological Mappings): per rij het bronconcept (NEN-code), het doelconcept (IMBOR-UUID), het mappingpredicaat (`skos:exactMatch`/`narrowMatch`/`broadMatch`/`closeMatch`), plus onderbouwing en auteur. Toets de uiteindelijke materialisatie met **SHACL** tegen de NEN 2660-patronen (o.a. de disjunctheid uit U2 en de verplichte deel→geheel-registratie via `sh:inversePath`). Zo is de uitkomst herleidbaar, uitwisselbaar en automatisch controleerbaar.
+- **Samenvoegen.** Leg de beslis-records van de vier werkgroepen naast elkaar en consolideer ze tot één samenhangende set klassen, relaties en mappings.
+- **Afstemmen.** Verzoen concepten die onder meerdere werkgroepen vallen (bijvoorbeeld Leuning, onder Kunstwerken én Wegmeubilair): één voorkeurslabel en één geharmoniseerde definitie. Los dubbelingen en tegenstrijdige dimensiekeuzes centraal op.
+- **Controleren.** Toets de samengevoegde decompositie machinematig tegen de NEN 2660-patronen met bijvoorbeeld SHACL: disjuncte dimensies (U2), een geldig relatietype per verbinding (`hasPart` / `isImplementedBy` / `subClassOf` / `isBegrensdDoor`) en definities naar genus-en-differentia. En controleer dat elk payload-element (belang, materiaalsoort, gebrek) een geldig ankerpunt houdt.
+
+>**Resultaat:** één geconsolideerde, gevalideerde decompositie met mappings, nog als voorstel vanuit de werkgroep Methodiek, klaar om in stap 5 op IMBOR aan te haken.
+{: .notice--info}
 
 ---
 
-## 12. Voorbeelduitwerkingen
+### Stap 5: Aanhaken op IMBOR
 
-Vier concepten, één per werkgroep, elk door Stap 0 → a → b → c → d → e. De uitkomsten zijn **voorwaardelijk**: ze gelden mits de aszijde van *beide* bronnen is vastgesteld.
+In de laatste stap nemen de **IMBOR-modelleurs** het geconsolideerde voorstel uit stap 4 over en bepalen hoe het zich verhoudt tot wat er al in IMBOR staat.
 
-### 12.1 Landhoofd (Kunstwerken): NEN 1326 ↔ `imbor:Landhoofd`
+- **Afwegen tegen de bestaande structuur.** Weeg de nieuwe decompositie (voor conditiemeting) af tegen een eventueel al bestaande decompositie in IMBOR. Beide zijn met een ander doel en vanuit een ander perspectief gemaakt; pas hier beslissen de IMBOR-modelleurs hun definitieve verhouding naast elkaar, geïntegreerd of vervangend.
+- **Opnemen in IMBOR.** Verwerk de uitkomst in IMBOR volgens het reguliere IMBOR-beheer- en releaseproces.
 
-| Stap | Uitkomst |
-|---|---|
-| **0. soort** | Zelfstandig **objecttype** (herkenbaar kunstwerkdeel), met daarnaast een deel-rol in een overbrugging. → door naar a/b/c. |
-| **a. discreet/ruimtelijk** | Beide **reëel/discreet** (tastbare constructie). Geen as-conflict. |
-| **b. functioneel/technisch** | Te bevestigen dat **beide** zijden technisch zijn (`Kunstwerkdeel`). NEN formuleert functies ("dragen", "keren") in de definitie; het object zelf is technisch. **Risico:** is de NEN-kant eigenlijk een functioneel *element*, dan is samenvallen verboden en is `isGeimplementeerdDoor` nodig. |
-| **c. betekenis + representatie** | Laag 1: vermoedelijk `exactMatch`. Laag 2: **samenvallen**: IMBOR kent `Landhoofd` ⊂ `Kunstwerkdeel`; NEN 1326 integreren. (Geldig mits b aan beide zijden technisch.) |
-| **d. naam** | `skos:prefLabel` "Landhoofd"; NEN-code `"1326"^^nen2767:Code` als `skos:notation`. |
-| **e. definitie** | Eén geharmoniseerde definitie; functies "dragen hoofddraagconstructie" en "keren grondlichaam" als `voertUit`-relaties (e-i); NEN-brontekst als `scopeNote`/bronconcept. |
+>Dit is het moment waarop de keuze valt die tot nu toe bewust openstond: de oude NEN 2767-4-decompositie en de bestaande IMBOR-decompositie zijn tot nu toe *naast* elkaar gezet, niet *door* elkaar. Hier bepalen de IMBOR-modelleurs hun uiteindelijke verhouding.
+{: .notice--warning}
 
-**Toets:** schone uitkomst *mits* de as-bevestiging. Mismatch "alleen formulering" → opgelost door e + d.
+---
 
-### 12.2 Verkeersbord (Wegmeubilair): NEN 1586 ↔ `imbor:Verkeersbord`
+## 5. 'Invulformulier' inhoudelijke werkgroepen
 
-| Stap | Uitkomst |
-|---|---|
-| **0. soort** | Zelfstandig **objecttype** (heeft eigen attributen). → door naar a/b/c. |
-| **a. discreet/ruimtelijk** | Beide **reëel/discreet** (fysiek bord). Geen as-conflict. |
-| **b. functioneel/technisch** | **Technisch** (`Bord` ⊂ Constructie). NEN-element 111 "Bebording en bewegwijzering" is eerder functioneel (`-ing`), maar het bouwdeel Verkeersbord is technisch. |
-| **c. betekenis + representatie** | Laag 1: `exactMatch`. Laag 2: **samenvallen**: IMBOR kent `Verkeersbord` al (eigen attributen bordcode/reflectieklasse → echte klasse). NEN 1586 integreren; zusterbouwdelen (1073, 1822, 1903) idem. |
-| **d. naam** | prefLabel "Verkeersbord"; NEN-code `"1586"^^nen2767:Code` als notation (op het SKOS-concept). |
-| **e. definitie** | Harmoniseren; IMBOR-definitie ("wettelijk vastgesteld verkeersteken") is objectmatig, consistent met de classificatie. |
+***NADER UIT TE WERKEN...***
 
-**Toets:** werkt. Mismatch "granulariteit gelijk, koppeling ontbreekt" → opgelost door samenvallen + notation. (De functionele laag "Bebording en bewegwijzering" is een apart niveau-vraagstuk.)
+- Beslis-record per concept. Leg per concept het eindresultaat van de stappen vast: dimensie ruimtelijk/reëel, dimensie functioneel/technisch (incl. "onbepaald"), betekenisrelatie (stap 1); gekozen representatie en payload-bestemming (stap 3); plus onderbouwing, open vragen en reviewer. Dit maakt elke keuze herleidbaar en vergelijkbaar, en maakt "onopgelost: nadere beslissing nodig" een geldige uitkomst. Leg het vast in een vaste tabel; die kan later machineleesbaar worden geëxporteerd (bijvoorbeeld als SSSOM-mapping).
+- De werkgroepen leveren beslis-records, geen kant-en-klare modelwijzigingen. Het samenvoegen van de vier opleveringen, de consolidatie en de SHACL-controle tegen de NEN 2660-patronen zijn werk van de modelleur namens de werkgroep Methodiek (stap 4).
+- ...
 
-### 12.3 Fauna-uittreedplaats (Groen): NEN 131 ↔ `imbor:Fauna-uittreedplaats`
+### Beslisflow in beeld
 
-| Stap | Uitkomst |
-|---|---|
-| **0. soort** | Zelfstandig **objecttype** (een voorziening). → door naar a/b/c. |
-| **a. discreet/ruimtelijk** | **Onbepaald.** NEN "constructie langs steile/verticale oever" = reëel/discreet; IMBOR "talud, trap of schuin vlak" is ambigu. → **fallback (a-ii):** voorlopig onder generiek `FysiekObject`, open vraag noteren; geen keuze forceren. |
-| **b. functioneel/technisch** | **Functioneel** aan beide kanten (`Faunavoorziening`). Naamgeving/definitie functiegericht, consistent. |
-| **c. betekenis + representatie** | Laag 1: `closeMatch` (nog niet `exactMatch`, zie e). Laag 2: **voorlopig samenvallen**, pas definitief ná definitie-harmonisatie én de a-beslissing. De twee IMBOR-domeinwaarden (groot wild / watervogels) blijven verschijningsvorm. |
-| **d. naam** | prefLabel "Fauna-uittreedplaats"; NEN "Fauna uittreedplaats" als `altLabel` (geldig want zelfde concept); code 131 als notation. |
-| **e. definitie** | **Kernprobleem.** Definities sluiten elkaar deels uit (steil/verticaal vs. schuin vlak). Eerst harmoniseren tot één functiegerichte definitie die beide uitvoeringsvormen dekt; functie als `voertUit`-relatie. Pas daarna is `exactMatch`/samenvallen hard. |
+Het diagram hieronder vat de drie stappen samen tot één beslisflow: de drie vaststellingen van stap 1, de diagnose van stap 2, en in stap 3 de twee parallelle beslissingen (uitkomst per concept én uitkomst per `hasPart`-relatie), met daarna het vastleggen van naam, definitie en payload.
 
-**Toets:** laat zien dat de uitkomst **voorwaardelijk** is: twee open punten (as a onbepaald → fallback; definitie-harmonisatie → inhoudelijk werk) moeten eerst dicht. Precies wat de regels moeten blootleggen.
+{::nomarkdown}
+<pre class="mermaid">
+{% include_relative assets/diagrammen/beslisflow.mmd %}
+</pre>
+{:/}
 
-### 12.4 Onderlaag (Verharding): NEN 2175 ↔ `Constructielaag` + domeinwaarde
+---
+
+## 6. Voorbeelduitwerkingen
+
+Vier concepten, één per werkgroep. Elke rij volgt de volgorde van het proces: eerst de twee dimensies en de betekenisrelatie (stap 1), dan de representatie, naam en definitie (stap 3). De uitkomsten zijn **voorwaardelijk**: ze gelden mits de dimensiezijde van *beide* bronnen is vastgesteld.
+
+### 6.1 Landhoofd
+
+Het voorbeeld betreft 'Landhoofd (Kunstwerken)' en `imbor:Landhoofd`. NEN-bouwdeel 1326 "Landhoofd" hangt onder element 202 "Steunpunt" (belang Hoog), dat op zijn beurt hangt onder twaalf beheerobjecten (Brug vast, Viaduct, Aquaduct, Ecoduct, Overkluizing, Onderdoorgang, Keersluis, …). IMBOR kent de klasse `Landhoofd` (bovenliggend: `Kunstwerkdeel`) en koppelt die als `hasPart` aan precies dezelfde kunstwerken (`Vaste brug`, `Beweegbare brug`, `Viaduct`, `Aquaduct`, `Ecoduct`, `Overkluizing`, `Flyover`).
 
 | Stap | Uitkomst |
 |---|---|
-| **0. soort** | Grensgeval: **deel-rol/positie** in een verharding, maar met zelfstandig inspectie-/conditiescore-belang → classificeerbaar via een instantieerbare laagklasse (niet als kale waarde). |
-| **a. discreet/ruimtelijk** | Beide **reëel/discreet** (vormvaste laag; vgl. NPR 4660 §6). Geen as-conflict. |
-| **b. functioneel/technisch** | **Technisch** (constructielaag naar samenstelling). Consistent met `Constructielaag`. |
-| **c. betekenis + representatie** | Laag 1: `narrowMatch`. Laag 2: **domeinwaarde** `constructielaagsoort = onderlaag` op een **instantie van `Constructielaag`**: die instantie blijft het adresseerbare inspectie-/conditiescore-subject (§6.11-patroon 1, géén kale attribuutwaarde). Geen eigen subklasse → vermijdt subklasse-explosie. |
-| **d. naam** | Geen nieuwe klasse-naam; de waarde in enumeratielijst `constructielaagsoort`; NEN-code `"2175"^^nen2767:Code` als notation op die domeinwaarde. |
-| **e. definitie** | Definitie van de **domeinwaarde**. |
+| **1. ruimtelijk/reëel** | **Reëel.** Tastbare constructie, vormvast (`DiscreetObject`). Beide zijden gelijk; geen dimensieconflict. |
+| **1. functioneel/technisch** | **Technisch.** De NPR-definitie bevat functiewerkwoorden ("zorgt voor het dragen … het keren"), maar die beschrijven wat het object *doet*; het object zélf is een constructie (`Kunstwerkdeel`). Ook IMBOR modelleert het technisch (`Kunstwerkdeel`). Geen dimensieconflict. |
+| **1. bestaat in IMBOR** | `skos:exactMatch`. Beide bronnen bedoelen hetzelfde objecttype: IMBOR kent `Landhoofd` als subklasse van `Kunstwerkdeel`. |
+| **2. confrontatie** | **Geen wrijving op conceptniveau**: technisch object, netjes op zijn niveau. Wel een opvallend verschil in de structuur: NEN koppelt Landhoofd aan één functioneel *element* ("Steunpunt"), IMBOR direct als onderdeel aan de kunstwerken zelf. Daarmee is de NEN-keten beheerobject → *element* → *bouwdeel* hier eigenlijk beheerobject → technisch onderdeel, en is de functie-tussenlaag "Steunpunt" een kandidaat om als functionele rol (`isImplementedBy`) te worden gemodelleerd. |
+| **3. concept** | **Samenvallen** (uitkomst 1). `skos:exactMatch`; NEN 1326 integreren in `imbor:Landhoofd`. |
+| **3. relatie** | De NEN-koppeling Landhoofd→Steunpunt wordt geen `hasPart` (Steunpunt is functioneel, Landhoofd technisch; zie §1) maar `isGeimplementeerdDoor`. IMBOR's directe `hasPart` van de kunstwerken kan blijven staan. |
+| **3. naam** | `skos:prefLabel` "Landhoofd" |
+| **3. definitie** | Harmoniseren tot één: de topologische positie van IMBOR ("overgang aardebaan naar kunstwerk") plus de functie van NEN ("dragen hoofddraagconstructie, keren grondlichaam"). Bijvoorbeeld: *"Ondersteuningsconstructie ter plaatse van de overgang van de aardebaan naar een kunstwerk, die de hoofddraagconstructie draagt en het aansluitende grondlichaam keert."* |
+| **payload** | Belang Hoog verhuist mee naar de nieuwe `isGeimplementeerdDoor`-relatie. Materialen (Hout, Beton, Steen) en de bijbehorende gebreken blijven aan het technische concept `Landhoofd` hangen. |
 
-**Toets:** scherpste bewijs dat niet elk NEN-bouwdeel een klasse wordt, **mits** de laag een adresseerbare instantie houdt. Openstaand (inhoudelijk): de IMBOR-domeinlijst combineert nu verhardingstype + laagpositie en moet mogelijk heringedeeld worden zodat "onderlaag" materiaal-onafhankelijk kan.
+**Conclusie:** de classificatie (stap 1) is schoon en leidt tot een zekere `exactMatch`; het echte werk zit in stap 2, waar het functie-element "Steunpunt" als rol wordt gemodelleerd. Dit is precies de weeffout-correctie uit §1.
 
-### 12.5 Wat de voorbeelden aantonen
-- De regels leiden tot **herleidbare, maar voorwaardelijke** uitkomsten: 2 vrij zekere samenvallers (Landhoofd, Verkeersbord, mits as-bevestiging), 1 voorwaardelijke samenvaller met open punten (Fauna), 1 domeinwaarde-met-instantie (Onderlaag).
-- De assen blokkeren nergens onterecht een subklasse; waar a onbepaald is (Fauna) grijpt de fallback naar het generieke concept (a-ii), geen geforceerd oordeel.
-- De regels scheiden **classificatiewerk** (deze methode) van **inhoudelijk harmonisatiewerk** (definitie-harmonisatie, domeinlijst-herindeling).
-- De vier voorbeelden testen nog geen echt as-conflict (`isBegrensdDoor`/`isGeimplementeerdDoor`), geen `broadMatch`/partiële overlap, en geen herhaalde deel-rol; vandaar de kalibratieset (§11).
+### 6.2 Verkeersbord
+
+Het voorbeeld betreft 'Verkeersbord (Wegmeubilair)' en `imbor:Verkeersbord`. NEN-bouwdeel 1586 "Verkeersbord" hangt onder element 111 "Bebording en bewegwijzering (statisch)" (belang Laag), dat onder een grote groep beheerobjecten hangt (weg, viaduct, verzorgingsplaats, rivier, kanaal, en vele meer). IMBOR kent de klasse `Verkeersbord` (bovenliggend: `Bord`, daaronder o.a. `Bewegwijzeringsbord`, `Informatiebord`, `Straatnaambord`).
+
+| Stap | Uitkomst |
+|---|---|
+| **1. ruimtelijk/reëel** | **Reëel.** Tastbaar bord, vormvast (`DiscreetObject`). Beide zijden gelijk; geen dimensieconflict. |
+| **1. functioneel/technisch** | **Technisch.** Het object is een constructie (`Bord`, bovenliggend: `Constructie`). Het *element* 111 ("Bebording en bewegwijzering", `-ing`) is daarentegen functioneel, maar het bouwdeel Verkeersbord zelf is technisch. IMBOR modelleert het ook technisch. Geen dimensieconflict. |
+| **1. bestaat in IMBOR** | `skos:exactMatch`. IMBOR kent `Verkeersbord` al, met eigen attributen (bordcode, reflectieklasse, bordafmeting) → dus een echte klasse, geen verschijningsvorm. |
+| **2. confrontatie** | **Geen wrijving op conceptniveau.** Beide kennen precies dezelfde bordsoorten (NEN-bouwdelen 1073/1586/1822/1903 en de IMBOR-subklassen van `Bord` kennen dezelfde soorten), dus de granulariteit is gelijk. Het enige verschil is de structuur: NEN koppelt ze plat als bouwdelen onder element 111, IMBOR als taxonomie onder `Bord`. |
+| **3. concept** | **Samenvallen** (uitkomst 1). NEN 1586 integreren met `imbor:Verkeersbord`; de zusterbouwdelen (1073, 1822, 1903, 1242) samenvallen met de overeenkomstige IMBOR-subklassen. |
+| **3. relatie** | De NEN-koppeling bouwdeel→element-111 wordt geen `hasPart` (element 111 is functioneel, het bord technisch) maar `isGeimplementeerdDoor`. |
+| **3. naam** | `skos:prefLabel` "Verkeersbord" (IMBOR-schrijfwijze). |
+| **3. definitie** | NEN NPR: "Bord waarop een wegverkeersteken is aangebracht en waarvan de uitvoering wettelijk is voorgeschreven" ≈ IMBOR: "wettelijk vastgesteld teken ter regeling, waarschuwing, geleiding of informering van het verkeer". Beide objectmatig en wettelijk verankerd → lichte harmonisatie tot één definitie. |
+| **payload** | Belang Laag verhuist mee naar de `isGeimplementeerdDoor`-relatie. Materialen (Hout, Kunststof, Staal) en gebreken (o.a. vervuiling, corrosie bevestiging) blijven aan het technische concept hangen. |
+
+**Conclusie:** een schone `exactMatch` met gelijke granulariteit; de taxonomie aan IMBOR-zijde (subklassen onder `Bord`) dekt de NEN-bouwdeelsoorten al, dus het werk beperkt zich tot het leggen van de koppeling en het harmoniseren van de definitie. De functionele tussenlaag "Bebording en bewegwijzering" is (net als bij Landhoofd) een kandidaat voor een FUTS-rol.
+
+### 6.3 Fauna-uittreedplaats
+
+Het voorbeeld betreft 'Fauna-uittreedplaats (Groen)' en `imbor:Fauna-uittreedplaats`. NEN-element 131 "Fauna uittreedplaats" hangt onder zes waterbeheerobjecten (Aquaduct, Kanaal, Meer, Rivier, en de twee "Water en watergang"-categorieën) en is opgebouwd uit tien bouwdelen (o.a. Damwand boven-/onderwatertalud, Filterconstructie, Grondlichaam, Loopplank, Rooster, Zinkstuk, Toplaag). IMBOR kent de klasse `Fauna-uittreedplaats` (bovenliggend: `Faunavoorziening`) met twee verschijningsvormen (groot wild, watervogels).
+
+| Stap | Uitkomst |
+|---|---|
+| **1. ruimtelijk/reëel** | **Onbepaald.** De NPR-definitie ("constructie langs een steile of verticale oever") is reëel; de IMBOR-definitie ("talud, trap, of ander schuin vlak") neigt ook naar reëel maar heeft een sterke ruimtelijke/locatie-component. → **fallback (U3):** voorlopig onder generiek `FysiekObject` plaatsen en als open vraag noteren; geen keuze forceren. |
+| **1. functioneel/technisch** | **Functioneel** aan beide kanten. IMBOR modelleert het expliciet als `Faunavoorziening` (een voorziening die een functie vervult); ook de NEN-definitie is functiegericht (fauna laten uittreden). Geen dimensieconflict. |
+| **1. bestaat in IMBOR** | `skos:closeMatch` (nog geen `exactMatch`). De definities overlappen maar sluiten elkaar deels uit: NEN "steile of verticale oever" vs. IMBOR "schuin vlak". Pas ná definitie-harmonisatie kan dit `exactMatch` worden. |
+| **2. confrontatie** | **Definitieconflict.** Dit is het scherpste voorbeeld van definities die elkaar vrijwel uitsluiten: een "schuin vlak" (IMBOR) is geen "constructie langs een steile oever" (NEN), terwijl het wel hetzelfde beheerde object is. Verder is de structuur verschillend: NEN decomposeert het element in tien bouwdelen; IMBOR kent alleen twee verschijningsvormen (groot wild / watervogels). |
+| **3. concept** | **Voorlopig samenvallen** (uitkomst 1, voorwaardelijk). Pas definitief `exactMatch` ná harmonisatie van de definitie. De twee IMBOR-verschijningsvormen blijven waarden, geen subklassen. |
+| **3. relatie** | De tien NEN-bouwdelen kunnen als onderdeel (`hasPart`) aan de geharmoniseerde klasse hangen; dat is een toevoeging aan IMBOR (daar ontbreekt de decompositie nog). |
+| **3. naam** | `skos:prefLabel` "Fauna-uittreedplaats" (IMBOR-schrijfwijze); NEN "Fauna uittreedplaats" (zonder koppelteken) als `skos:altLabel`. |
+| **3. definitie** | **Kernprobleem.** Eén geharmoniseerde, functiegerichte definitie opstellen die beide uitvoeringsvormen dekt, bijvoorbeeld: *"Voorziening (constructie, talud of trap) langs of in een oever van een watergang, waarmee (te water geraakte) dieren aan land kunnen komen."* |
+| **payload** | Belang (o.a. Hoog voor de meeste bouwdelen) blijft op de bouwdeel-relaties; materialen en gebreken blijven aan de tien bouwdelen hangen. |
+
+**Conclusie:** hier is géén schone match zonder werk: de definities moeten eerst geharmoniseerd worden (steil/verticaal vs. schuin vlak) voordat `exactMatch` houdbaar is. Dat is inhoudelijk werk voor de groep Groen, en precies wat de methode bloot moet leggen.
+
+### 6.4 Onderlaag
+
+Het voorbeeld betreft 'Onderlaag (Verharding)' en de IMBOR-klasse `Constructielaag`. NEN-bouwdeel 2175 "Onderlaag" hangt onder zeven elementen "Verharding wegtype 1 t/m 7" (belang Hoog), die onder het beheerobject "Weg" hangen. IMBOR kent géén klasse "Onderlaag", wel de klasse `Constructielaag` met het classificerende attribuut `constructielaagsoort`.
+
+| Stap | Uitkomst |
+|---|---|
+| **1. ruimtelijk/reëel** | **Reëel.** Een vormvaste constructielaag (`DiscreetObject`; vgl. NPR 4660 §6). Beide zijden gelijk; geen dimensieconflict. |
+| **1. functioneel/technisch** | **Technisch.** Een constructielaag, naar samenstelling gemodelleerd. IMBOR modelleert `Constructielaag` ook technisch. Geen dimensieconflict. |
+| **1. bestaat in IMBOR** | `skos:narrowMatch`. Een onderlaag ís een constructielaag, maar onderscheidt zich van `Constructielaag` alleen door de **laagpositie**: een eigenschapswaarde, geen eigen attributen. |
+| **2. confrontatie** | **Geen as-wrijving, maar wel een representatievraag.** De laag is technisch en past bij `Constructielaag`, maar NEN maakt er een benoemd bouwdeel van (met eigen conditiescore), terwijl IMBOR geen aparte klasse heeft. Dit is het schoolvoorbeeld van: niet elk NEN-bouwdeel is een klasse. |
+| **3. concept** | **Wordt verschijningsvorm** (uitkomst 4): "onderlaag" wordt een waarde van het classificerende attribuut `constructielaagsoort` bij de klasse `Constructielaag`, geen eigen klasse. De klasse `Constructielaag` blijft het object dat je vastlegt en inspecteert (de conditiescore kan er dus aan hangen). |
+| **3. relatie** | De NEN-koppeling bouwdeel→element-verharding blijft een `hasPart` van de verharding (de `Constructielaag` blijft deel van de wegconstructie). |
+| **3. naam** | Geen nieuwe klasse-naam. De waarde opnemen in de `constructielaagsoort`-lijst van `Constructielaag` (die nu waarden bevat als *Asfaltverharding (onderlaag)*, materiaal + laagpositie gecombineerd). |
+| **3. definitie** | Definitie van de **waarde** (geen klasse). Openstaand (inhoudelijk): de `constructielaagsoort`-lijst combineert nu verhardingstype + laagpositie en moet mogelijk heringedeeld worden zodat "onderlaag" materiaal-onafhankelijk kan. |
+| **payload** | Belang Hoog blijft op de relatie naar de verharding. Materialen (Zand, Asfaltbeton, Cementbeton) en gebreken blijven aan de `Constructielaag`-instantie hangen; die blijft dus het adresseerbare inspectie-object. |
+
+**Conclusie:** het scherpste bewijs dat niet elk NEN-bouwdeel een klasse wordt: "onderlaag" is een laagpositie (waarde), niet een apart objecttype. Cruciaal is dat de klasse `Constructielaag` het inspecteerbare object blijft, zodat de conditiemeting er aan kan blijven hangen. Het herindelen van de `constructielaagsoort`-lijst is inhoudelijk werk, geen classificatievraag.
+
+### 6.5 Wat de voorbeelden aantonen
+- De methode leidt tot **herleidbare, maar voorwaardelijke** uitkomsten: 2 vrij zekere samenvallers (Landhoofd, Verkeersbord, mits bevestiging van de dimensiezijde), 1 voorwaardelijke samenvaller met open punten (Fauna), 1 verschijningsvorm (Onderlaag).
+- De dimensies blokkeren nergens onterecht een subklasse; waar de dimensie ruimtelijk/reëel onbepaald is (Fauna) grijpt de fallback naar het generieke concept, geen geforceerd oordeel.
+- De methode scheidt **classificatiewerk** (stap 1) van **inhoudelijk harmonisatiewerk** (definitie-harmonisatie, domeinlijst-herindeling).
+- De vier voorbeelden testen nog geen echt dimensieconflict (`isBegrensdDoor`/`isGeimplementeerdDoor`), geen `broadMatch`/partiële overlap, en geen herhaalde deel-rol. Zulke lastige gevallen zijn juist een proefpunt voor een eventuele kalibratieronde over de werkgroepen heen (nog openstaand).

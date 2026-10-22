@@ -1,0 +1,79 @@
+flowchart TD
+    A["NEN 2767-4-concept<br/>(bouwdeel / element / beheerobject)"] --> S1
+
+    subgraph STAP1["Stap 1 — Concept op IMBOR leggen"]
+        direction TB
+        S1{"Ruimtelijk<br/>of reëel?"}
+        S2{"Functioneel<br/>of technisch?"}
+        S3{"Bestaat al<br/>in IMBOR?"}
+        OPEN1["Onbepaald:<br/>onder FysiekObject,<br/>noteer als open vraag (U3)"]
+        MAP["Betekenisrelatie vastgelegd<br/>(exact / narrow / broad /<br/>close / geen tegenhanger)"]
+        S1 -->|"reëel of ruimtelijk"| S2
+        S1 -.->|"twijfel (U3)"| OPEN1
+        S2 -->|"functioneel of technisch"| S3
+        S2 -.->|"twijfel (U3)"| OPEN1
+        OPEN1 -.-> S3
+        S3 --> MAP
+    end
+
+    MAP --> DIAG
+
+    subgraph STAP2X["Stap 2 — Decompositie vergelijken (diagnose)"]
+        direction TB
+        DIAG["Inventariseer per concept en per relatie de wrijving:<br/>• niveau ≠ dimensie<br/>• dimensieconflict NEN vs IMBOR<br/>• specialisatie verkleed als hasPart<br/>(of: geen wrijving)"]
+    end
+
+    DIAG --> C
+
+    subgraph STAP3C["Stap 3a — Uitkomst per concept"]
+        direction TB
+        C{"Welke<br/>uitkomst?"}
+        C --> U1["1. Blijft klasse op niveau"]
+        C --> U2["2. Verschuift van niveau"]
+        C --> U3["3. Valt samen (exactMatch)"]
+        C --> U4["4. Wordt verschijningsvorm"]
+        C --> U5["5. Wordt materiaal (materie-tak)"]
+        C --> U6["6. Splitst in meerdere klassen"]
+        C --> U7["7. Vervalt"]
+        ND["Naam en definitie vastleggen<br/>(NEN 2660-2 §8.4 / §8.5;<br/>bij verschijningsvorm: van de waarde)"]
+        U1 --> ND
+        U2 --> ND
+        U3 --> ND
+        U4 --> ND
+        U5 --> ND
+        U6 --> ND
+    end
+
+    ND --> R
+
+    subgraph STAP3R["Stap 3b — Uitkomst per hasPart-relatie"]
+        direction TB
+        R{"Welke<br/>uitkomst?"}
+        R --> R1["Blijft hasPart"]
+        R --> R2["Wordt subClassOf"]
+        R --> R3["Wordt isImplementedBy"]
+        R --> R4["Wordt isBegrensdDoor / bevat"]
+        R --> R5["Verlegd"]
+        R --> R6["Vervalt"]
+    end
+
+    U7 --> PAY2["Vervalt: payload expliciet<br/>heralloceren of afvoeren"]
+    ND --> PAY["Payload-bestemming:<br/>materiaal + gebrek<br/>blijven aan het concept"]
+    R1 --> PAYR
+    R2 --> PAYR
+    R3 --> PAYR
+    R4 --> PAYR
+    R5 --> PAYR
+    R6 --> PAYR
+    PAYR["Belang verhuist<br/>mee met de relatie"]
+
+    classDef beslis fill:#fff4e5,stroke:#b1501f,stroke-width:2px;
+    classDef uitkomst fill:#e8f4e8,stroke:#2d6a2d,stroke-width:1px;
+    classDef relatie fill:#e8eef7,stroke:#2d4a7a,stroke-width:1px;
+    classDef openvraag fill:#fdecea,stroke:#a33,stroke-width:1px,stroke-dasharray: 5 5;
+    classDef neutraal fill:#f5f5f5,stroke:#666,stroke-width:1px;
+    class S1,S2,S3,C,R beslis;
+    class U1,U2,U3,U4,U5,U6,U7 uitkomst;
+    class R1,R2,R3,R4,R5,R6 relatie;
+    class OPEN1 openvraag;
+    class MAP,DIAG,ND,PAY,PAY2,PAYR neutraal;
