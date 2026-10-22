@@ -1,0 +1,39 @@
+title: "IMBOR × NEN 2767-4"
+description: "VOORSTEL"
+locale: "nl-NL"
+
+remote_theme: "mmistakes/minimal-mistakes@4.28.1"
+minimal_mistakes_skin: "sunrise"
+search: true
+
+plugins:
+  - jekyll-remote-theme
+  - jekyll-include-cache
+  - jekyll-feed
+  - jekyll-sitemap
+
+# Houd repo-bestanden uit de gepubliceerde site. Let op: 'exclude' vervangt
+# Jekylls standaardlijst, dus die defaults staan hier óók in.
+exclude:
+  - .sass-cache
+  - .jekyll-cache
+  - gemfiles
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+  - README.md
+  - script
+
+# Apply the single-page layout with a sticky table of contents to every page
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: single
+      toc: true
+      toc_sticky: true
+      toc_label: "Inhoudsopgave"

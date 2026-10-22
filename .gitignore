@@ -1,0 +1,14 @@
+# Jekyll — buildoutput & caches
+_site/
+.sass-cache/
+.jekyll-cache/
+.jekyll-metadata
+
+# Bundler / Ruby — lokale preview (niet nodig op GitHub Pages)
+Gemfile.lock
+.bundle/
+vendor/
+
+# OS-rommel
+.DS_Store
+Thumbs.db
