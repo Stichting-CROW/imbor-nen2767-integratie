@@ -1,0 +1,7 @@
+# Bovenbalk-navigatie (masthead). Interne navigatie doet de inhoudsopgave al;
+# hier staan vooral externe links.
+main:
+  - title: "Commentaar geven"
+    url: https://github.com/Stichting-CROW/imbor-nen2767-integratie/blob/main/index.md
+  - title: "IMBOR documentatie"
+    url: https://docs.crow.nl/imbor

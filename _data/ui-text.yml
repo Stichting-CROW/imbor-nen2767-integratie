@@ -1,0 +1,29 @@
+# Nederlandse UI-teksten voor Minimal Mistakes.
+#
+# Nodig omdat een Jekyll-(remote-)thema géén _data/ meelevert: het ui-text.yml
+# van het thema wordt niet geladen, dus zonder dit bestand valt alle UI terug
+# op het Engelse default. site.locale staat op "nl", dus de strings horen onder
+# de sleutel "nl". Ontbrekende sleutels vallen vanzelf terug op Engels.
+nl:
+  skip_primary_nav           : "Ga naar hoofdnavigatie"
+  skip_content               : "Ga naar de inhoud"
+  skip_footer                : "Ga naar de voettekst"
+  menu_label                 : "Menu"
+  toc_label                  : "Inhoudsopgave"
+  ext_link_label             : "Directe link"
+  less_than                  : "minder dan"
+  minute_read                : "minuten leestijd"
+  share_on_label             : "Deel op"
+  tags_label                 : "Labels:"
+  categories_label           : "Categorieën:"
+  date_label                 : "Bijgewerkt:"
+  more_label                 : "Meer informatie"
+  related_label              : "Bekijk ook eens"
+  follow_label               : "Volg:"
+  feed_label                 : "Feed"
+  powered_by                 : "Aangedreven door"
+  website_label              : "Website"
+  email_label                : "E-mail"
+  undefined_wpm              : "Niet-gedefinieerde parameter words_per_minute in _config.yml"
+  loading_label              : "Laden..."
+  back_to_top                : "Terug naar boven"

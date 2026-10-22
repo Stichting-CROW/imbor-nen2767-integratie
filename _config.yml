@@ -1,10 +1,14 @@
 title: "IMBOR × NEN 2767-4"
-description: "VOORSTEL"
-locale: "nl-NL"
+description: "Voorstel voor een werkbare, herleidbare methode om concepten uit NEN 2767-4 op te nemen in IMBOR, verankerd in de modelleerpatronen van NEN 2660-2."
+locale: "nl"
 
 remote_theme: "mmistakes/minimal-mistakes@4.28.1"
 minimal_mistakes_skin: "sunrise"
-search: true
+search: false
+
+# Geen losse berichten → lege RSS-feed; verberg het feed-icoon in de footer.
+atom_feed:
+  hide: true
 
 plugins:
   - jekyll-remote-theme
@@ -12,8 +16,6 @@ plugins:
   - jekyll-feed
   - jekyll-sitemap
 
-# Houd repo-bestanden uit de gepubliceerde site. Let op: 'exclude' vervangt
-# Jekylls standaardlijst, dus die defaults staan hier óók in.
 exclude:
   - .sass-cache
   - .jekyll-cache
@@ -28,7 +30,6 @@ exclude:
   - README.md
   - script
 
-# Apply the single-page layout with a sticky table of contents to every page
 defaults:
   - scope:
       path: ""
@@ -37,3 +38,5 @@ defaults:
       toc: true
       toc_sticky: true
       toc_label: "Inhoudsopgave"
+      toc_icon: "list-ul"
+      read_time: true
