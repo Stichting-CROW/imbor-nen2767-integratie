@@ -84,7 +84,7 @@ Deze uitgangspunten zijn de houvast voor het gehele project.
 - **U1: Opnemen waar mogelijk, niet persé als klasse.** De concepten uit NEN 2767-4 worden zoveel mogelijk opgenomen in IMBOR. "Opnemen" kent meerdere vormen: twee concepten die **samenvallen** (integreren tot één), een **subklasse**, een **verschijningsvorm** op een instantieerbare klasse, een **onderdeel** (`hasPart`), of een **materiaal** in de materie-tak. De wens is dat elk in-scope concept een expliciete, herleidbare representatie of mapping krijgt, niet dat elk concept een eigen klasse wordt.
 - **U2: De ALIM-dimensies zijn optioneel, maar sluiten elkaar uit zodra je ze toepast (NEN 2660-2 noemt dat *disjunct*).** De dimensies ruimtelijk/reëel (§6.2), functioneel/technisch (§6.4) en gepland/gerealiseerd (§6.5) hoeven niet voor elk concept te worden ingevuld. Maar waar je een dimensie wél toepast, kan een klasse _niet aan beide zijden tegelijk hangen_: "het een of het ander, niet beide" (§6.4). Dat sluit niet uit dat één ding zowel een functie heeft als technisch beschreven is: een technisch object mag functie-inhoud dragen en een functionele rol vervullen, zolang het een **aanwijsbaar, context-onafhankelijk** (het blijft in elke situatie hetzelfde ding) object blijft. Waar bronconcepten op verschillende dimensiezijden vallen, is een **relatie** nodig, geen subklasse. 
 
->_Afbakening voor de UTD:_ geen ruimtelijke objecten, alleen discrete objecten die als technisch object zijn aan te duiden; de dimensie gepland/gerealiseerd speelt hier niet.
+>_Afbakening voor de UTD:_ geen ruimtelijke objecten **als knoop** in de decompositie, alleen discrete objecten die als technisch object zijn aan te duiden; de dimensie gepland/gerealiseerd speelt hier niet. _Wel_ leggen we een ruimtelijke relatie vast als we die tegenkomen: een overgang ruimtelijk↔reëel modelleren we met `isBegrensdDoor` of `bevat`, **verwijzend naar een bestaand ruimtelijk concept in IMBOR**. Zo'n relatie is geen `hasPart`, maakt de ruimte geen UTD-concept en hangt geen payload aan de ruimte-kant; hij bewaart alleen de koppeling voor een latere fase.
 {: .notice--warning}
 
 - **U3: Classificeren op een dimensie is optioneel (NEN 2660-2 §6.6).** Is een dimensie niet relevant of niet eenduidig te bepalen, dan volstaat het generieke concept (`FysiekObject`) zonder keuze. Forceer geen keuze waar die niets toevoegt, dat levert schijnnauwkeurigheid op. _Noteer een onbepaalde dimensie wel als open vraag._
@@ -130,6 +130,8 @@ Stap 1 stelt per concept **drie dingen** vast. De uitkomst is een mapping waarin
 - **Ruimtelijk** = niet-direct tastbaar, bepaald door begrenzing of inhoud (rijstrook, profiel van vrije ruimte). *Toets:* "is het een afgebakende ruimte of zone zonder eigen materiaal?"
 
 "Inspecteerbaar" is géén bewijs van reëel/discreet (ook bulk of ruimte is inspecteerbaar). Beoordeel op vormvastheid en tastbaarheid. Ruimtelijke concepten zitten vooral aan de netwerk- en wegindelingskant (wegvak, rijstrook). Voor meer informatie wordt naar NEN 2660-2 §6.2 verwezen.
+
+*Kom je een ruimtelijk concept tegen?* Leg dan geen decompositie-relatie aan, maar leg de koppeling vast met `isBegrensdDoor` of `bevat` naar een bestaand ruimtelijk concept in IMBOR (zie U2-afbakening en beslistabel relaties).
 
 *Bij twijfel:* laat de dimensie open, plaats het concept onder het generieke `FysiekObject` en noteer het als open vraag (U3).
 
@@ -230,7 +232,7 @@ Per bestaande `hasPart`-relatie is er één uitkomst uit de onderstaande tabel v
 | Wordt `subClassOf` | was eigenlijk een specialisatie (is-een), geen deel-van | lever een concreet vervangend element als het omlabelen een gat slaat |
 | Wordt `has member` | was een groepering/verzameling, geen deel-van | groep terugbrengen tot de afzonderlijke leden |
 | Wordt `isImplementedBy` (`isGeimplementeerdDoor`) | **uitzondering:** het element is écht puur functioneel en wordt door technische bouwdelen geïmplementeerd | niet standaard op elke element→bouwdeel-overgang toepassen |
-| Wordt `isBegrensdDoor` / `bevat` | overgang ruimtelijk vs. reëel | vergt een inhoudelijk reëel object aan de andere kant, niet alleen een hernoeming; hoort buiten de kern-decompositie (evt. later) |
+| Wordt `isBegrensdDoor` / `bevat` | overgang ruimtelijk vs. reëel | verwijst naar een **bestaand ruimtelijk concept in IMBOR**; vergt een inhoudelijk reëel object aan de andere kant, niet alleen een hernoeming. Geen `hasPart`, geen payload aan de ruimte-kant; buiten de kern-decompositie, maar de koppeling blijft bewaard voor later |
 | Verlegd | een uiteinde is samengevallen of verschoven | relatie opnieuw aanknopen zonder gat; beoordeel alle voorkomens |
 | Vervalt | een uiteinde vervalt, of de relatie is betekenisloos | payload bewust herverdelen of afvoeren |
 
