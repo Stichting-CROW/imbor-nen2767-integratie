@@ -38,7 +38,7 @@ De in-scope klassen in IMBOR krijgen een **Uniforme Technische Decompositie (UTD
 
 ### Samenhang en werkwijze
 
-De twee onderdelen hangen direct met elkaar samen. De inhoudelijke werkgroepen beoordelen de herziene decompositie en de relatie naar IMBOR. Daarbij kan bijvoorbeeld blijken dat een klasse die nu als element is opgenomen, eigenlijk technisch van aard is en dus op het niveau van bouwdeel thuishoort. Het omgekeerde kan ook.
+De twee onderdelen hangen direct met elkaar samen. De inhoudelijke werkgroepen beoordelen de klassen (de taxonomie) én stellen met die klassen als bouwblokken de UTD samen in drie niveaus. Daarbij kan bijvoorbeeld blijken dat een klasse die nu als element is opgenomen, eigenlijk technisch van aard is en dus op het niveau van bouwdeel thuishoort. Het omgekeerde kan ook. Hoe die UTD in de IMBOR-taxonomie overerft, wordt nader bepaalt door de modelleur in stap 6 (zie U8).
 
 ---
 
@@ -74,6 +74,7 @@ We gebruiken deze termen consistent in dit project:
 - **betekenisrelatie**: de mate van overeenkomst tussen een NEN 2767-4-concept en een IMBOR-concept, uitgedrukt met een SKOS-term (`exactMatch`, `narrowMatch`, `broadMatch`, `closeMatch`, of geen tegenhanger).
 - **representatie**: de vorm waarin een concept in IMBOR wordt opgenomen; bijvoorbeeld een eigen klasse, een subklasse, een verschijningsvorm, een onderdeel (`hasPart`), een materiaal, of vervallen. 
 - **decompositie** (opdeling in onderdelen): het geheel van concepten met hun `hasPart`-relaties.
+- **UTD (Uniforme Technische Decompositie)**: dé technische decompositie voor conditiemeting, altijd opgebouwd uit drie niveaus (Beheerobject–Element–Bouwdeel). De werkgroepen stellen de UTD samen uit IMBOR-klassen als bouwblokken.
 - **NEN-niveau**: beheerobject, element of bouwdeel.
 - **payload**: de conditiemetinginformatie die NEN 2767-4 aan de decompositie hangt: **belang** (op de relatie element→bouwdeel), **materiaalsoort** (aan het bouwdeel) en **gebrek** (aan de materiaalsoort). 
 {: .notice--info}
@@ -92,6 +93,7 @@ Deze uitgangspunten zijn de houvast voor het gehele project.
 - **U5: Taxonomie vóór decompositie.** Bepaal eerst welke klassen er zijn en pas daarna hoe ze samenhangen. Hiermee importeren we de modelleringsfouten uit de NEN 2767-4-decompositie niet mee in IMBOR, en wordt de herziene decompositie een resultaat op basis van bewijs in plaats van een overname.
 - **U6: De 'conditiemeting-payload' blijven herleidbaar.** Belang, Materiaalsoort en Gebrek (die noemen we payload) moeten na de herinrichting een geldig ankerpunt hebben. Elke wijziging aan een concept of relatie krijgt daarom een expliciete payload-bestemming (stap 3).
 - **U7: De UTD blijft compleet op drie niveaus.** De decompositie Beheerobject–Element–Bouwdeel blijft een complete, consistente driedeling: er mogen geen gaten op enig niveau ontstaan. Elke wijziging aan een concept (verschuiven, samenvoegen, algemener maken, vervallen) is pas afgerond wanneer de betrokken relaties zijn meeverlegd en de conditiemetinginformatie is gecontroleerd en waar nodig aangepast.
+- **U8: De werkgroepen bouwen de UTD, de modelleur bepaalt de integratie.** De werkgroepen stellen eerst de IMBOR-klassen (de taxonomie) vast en gebruiken die klassen als **bouwblokken** om een UTD in drie niveaus samen te stellen. Ze hoeven daarbij vooralsnog **geen rekening te houden met hoe de UTD in de IMBOR-taxonomie overerft**. Pas in stap 6 bepaalt de modelleur hoe de UTD zich verhoudt tot de taxonomie: rijgt de UTD met minimale aanpassingen eenvoudig in IMBOR, dan integreren we hem (met overerving); blijkt de overerving te problematisch, dan kan worden besloten de UTD separaat te houden. Die keuze valt dus bewust pas in stap 6.
 
 ---
 
@@ -299,12 +301,14 @@ Het samengevoegde voorstel wordt getoetst voordat het definitief wordt. Dat gebe
 
 ### Stap 6: Aanhaken op IMBOR
 
-In de laatste stap nemen de **IMBOR-modelleurs** het gevalideerde voorstel uit stap 5 over en bepalen hoe het zich verhoudt tot wat er al in IMBOR staat.
+In de laatste stap nemen de **IMBOR-modelleurs** de gevalideerde UTD uit stap 5 over en integreren die in IMBOR. De werkgroepen hebben de UTD bewust opgebouwd uit IMBOR-klassen, zónder rekening te houden met hoe die in de taxonomie overerft (zie U8); hier bepaalt de modelleur hoe dat uitpakt.
 
-- **Afwegen tegen de bestaande structuur.** Weeg de UTD af tegen een eventueel al bestaande decompositie in IMBOR. Beide zijn met een ander doel en vanuit een ander perspectief gemaakt; pas hier beslissen de IMBOR-modelleurs hun definitieve verhouding naast elkaar, geïntegreerd of vervangend.
+- **Afwegen tegen wat er al is.** In IMBOR bestaat al een beperkte decompositie (en de klassen zelf natuurlijk). Die bestaande decompositie en de nieuwe UTD zijn met een ander doel en vanuit een ander perspectief gemaakt; de modelleur weegt ze hier tegen elkaar af en bepaalt hun definitieve verhouding — naast elkaar, geïntegreerd of vervangend.
+- **Integreren, als het eenvoudig rijgt.** Rijgt de UTD met minimale aanpassingen (in IMBOR of in de UTD) netjes in de bestaande structuur, dan integreren we hem — mét overerving door de taxonomie.
+- **Of separaat houden, als de overerving problematisch is.** Geeft de overerving te veel problemen, dan kan worden besloten de UTD separaat te houden, los van de overerving. Die keuze valt hier, op basis van hoe goed de UTD en de IMBOR-taxonomie op elkaar aansluiten.
 - **Opnemen in IMBOR.** Verwerk de uitkomst in IMBOR volgens het reguliere IMBOR-beheer- en releaseproces.
 
->Dit is het moment waarop de keuze valt die tot nu toe bewust openstond: de oude NEN 2767-4-decompositie en de bestaande IMBOR-decompositie zijn tot nu toe *naast* elkaar gezet, niet *door* elkaar. Hier bepalen de IMBOR-modelleurs hun uiteindelijke verhouding.
+>Dit is het moment waarop de keuze valt die tot nu toe bewust openstond (zie U8): integreren met overerving, of de UTD separaat houden. De werkgroepen hebben die afweging niet hoeven maken; de modelleur bepaalt hier de uiteindelijke verhouding tussen de UTD en de IMBOR-taxonomie.
 {: .notice--warning}
 
 ---
@@ -325,6 +329,12 @@ In de laatste stap nemen de **IMBOR-modelleurs** het gevalideerde voorstel uit s
 
 - De werkgroepen leveren beslis-records, geen kant-en-klare modelwijzigingen. Het samenvoegen (stap 4) en de controle en terugkoppeling (stap 5) zijn werk van de modelleur namens de werkgroep Methodiek, in samenwerking met de inhoudelijke werkgroepen.
 - ...
+
+**Nog mee te nemen bij de uitwerking van dit hoofdstuk (template + werkinstructie):**
+
+- **Plek voor ruimte-relaties.** Het template krijgt een veld om een ruimtelijke relatie vast te leggen als de werkgroep die tegenkomt: `isBegrensdDoor` of `bevat` naar een bestaand ruimtelijk concept in IMBOR (zie U2-afbakening). De werkinstructie legt uit dat dit géén `hasPart` is, de ruimte geen UTD-concept maakt en geen payload aan de ruimte-kant hangt.
+- **Bijvangst voor connecties.** Komt de werkgroep koppelingen tussen assets tegen die niet in de decompositie horen (bijvoorbeeld viaduct–lichtmast–kabel–kast), dan is daar een aparte plek voor in het template. De werkinstructie maakt hierbij expliciet dat de werkgroepen **géén systemen modelleren**: dit zijn orthogonale relaties die mogelijk in IMBOR landen, maar buiten de UTD-decompositie vallen. Het dient alleen om deze bijvangst niet te verliezen.
+- **Schrijfregels namen en definities.** Verwerk de bestaande schrijfregels voor NEN 2767-4 (namen en definities) in de werkinstructie, afgestemd op §3 (uitgangspunten) en de regels voor naam en definitie in stap 3.
 
 ### Beslisflow in beeld
 
@@ -438,3 +448,4 @@ Dit vijfde voorbeeld hoort niet bij één van de vier pilotwerkgroepen; het is t
 - De dimensies blokkeren nergens onterecht een subklasse; waar de dimensie ruimtelijk/reëel onbepaald is (Fauna) grijpt de fallback naar het generieke concept, geen geforceerd oordeel.
 - De methode scheidt **classificatiewerk** (stap 1) van **inhoudelijk harmonisatiewerk** (definitie-harmonisatie, domeinlijst-herindeling).
 - Met Signaalkabel erbij is de specialisatie-weeffout (`subClassOf`) nu wél gedekt, en meteen een illustratie dat IMBOR de juiste structuur vaak al heeft ("kijk eerst in IMBOR"). Nog niet onvoorwaardelijk getest: een puur-functioneel element dat `isGeimplementeerdDoor` vereist (Fauna is hiervan een *voorwaardelijke* casus, zie 6.3, mits werkgroep Groen "functioneel" bevestigt), een concept zónder IMBOR-tegenhanger (noteer de beoogde ouderklasse), `broadMatch`, een blijvende partiële overlap (`closeMatch`/`relatedMatch` als eindstatus: de `closeMatch` bij Fauna is voorlopig en gaat naar `exactMatch`), en een herhaalde deel-rol. Zulke lastige gevallen zijn juist een proefpunt voor een eventuele kalibratieronde over de werkgroepen heen (nog openstaand).
+- De voorbeelden laten ook zien waarom de werkgroepen zich **niet** met de overerving hoeven bezig te houden (U8): ze bouwen de UTD uit IMBOR-klassen als bouwblokken. Of die UTD uiteindelijk met overerving in de taxonomie rijgt of separaat blijft, is een keuze voor de modelleur in stap 6. Geen van de voorbeelden vereist dat die keuze nu al wordt gemaakt.
