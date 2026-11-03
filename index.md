@@ -108,7 +108,10 @@ We werken van eenvoudig naar complex: eerst kijken we alleen naar de losse conce
 | **5. Controleren** | modelleur ↔ inhoudelijke werkgroepen | Toets het samengevoegde voorstel én laat de inhoudelijke werkgroepen de voorgestelde relaties en definities valideren (terugkoppelronde). |
 | **6. Aanhaken op IMBOR** | IMBOR-modelleurs | Weeg de nieuwe decompositie af tegen een eventueel al bestaande decompositie in IMBOR. |
 
-**Waar we beginnen.** Het startpunt ligt al klaar voor de eerste pilotfase: de 80-20-lijst bevat per werkgroep de geselecteerde beheerobjecten, elementen en bouwdelen, met hun definities en hun onderlinge relaties. Die lijst is het vertrekpunt voor stap 1 en het vergelijkingspunt voor stap 2.
+**Waar we beginnen.** Elke inhoudelijke werkgroep krijgt drie dingen als uitgangspunt:
+1. **dit uitgangspuntendocument** (de methode),
+2. **de 80-20-lijst** — die bepaalt de scope: per werkgroep de geselecteerde beheerobjecten, elementen en bouwdelen, met hun definities en hun onderlinge relaties. Die lijst is de werkvoorraad, het vertrekpunt voor stap 1 en het vergelijkingspunt voor stap 2,
+3. **een voorgestelde mapping** op IMBOR per concept. Dat voorstel is een *educated guess* op basis van expert judgement en praktijkervaring; de werkgroep hoeft dus niet vanaf nul te mappen, maar **beoordeelt en verifieert** het voorstel in stap 1. Het is een hulpmiddel, geen vaststaand resultaat.
 
 >*De oude NEN 2767-4-decompositie en een eventueel al bestaande decompositie in IMBOR zijn met een ander doel en vanuit een ander perspectief gemaakt.* We zetten ze naast elkaar, niet door elkaar. Hoe ze zich uiteindelijk tot elkaar verhouden, bepalen de IMBOR-modelleurs later (stap 6).
 {: .notice--warning}
@@ -148,7 +151,7 @@ Verwar de *functionele dimensie* (hier, per concept) niet met de *rol* van een n
 *Bij twijfel:* laat de dimensie open (net zoals vaststelling 1).
 
 #### Vaststelling 3: Bestaat het al in IMBOR?
-Zoek het dichtstbijzijnde IMBOR-concept en bepaal de betekenisrelatie. Kijk daarbij naar **welke objecten eronder vallen**, niet naar welke attributen het concept heeft:
+Vertrekpunt is hier de **voorgestelde mapping** die je bij de 80-20-lijst kreeg (zie "Waar we beginnen"): beoordeel en verifieer die, in plaats van vanaf nul te zoeken. Zoek het dichtstbijzijnde IMBOR-concept en bepaal de betekenisrelatie. Kijk daarbij naar **welke objecten eronder vallen**, niet naar welke attributen het concept heeft:
 
 | Relatie | SKOS-term | Betekenis |
 |---|---|---|
