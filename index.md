@@ -22,13 +22,13 @@ Het project dat door NEN & CROW samen ondernomen wordt bestaat uit twee samenhan
   2. Een typische decompositie (of: Uniforme Technische Decompositie) voor conditiemeting in IMBOR, herzien volgens NEN 2660
 
 ### Integratie van de klassen (objecttypen) uit IMBOR en NEN 2767-4
-De klassen uit beide standaarden worden veel gebruikt in beheer en assetmanagement. Ze overlappen sterk, maar hun definities en benamingen sluiten niet op elkaar aan. De integratie moet leiden tot één eenduidige set klassen die in de hele sector is afgestemd. Waar volledige integratie niet mogelijk is, worden de klassen op elkaar afgestemd. De mapping kan ook laten zien dat een NEN 2767-4-concept al volledig gedekt wordt door een (beter) IMBOR-concept: dan kan de NEN-term vervallen of opgaan in die IMBOR-klasse. Dat is geen waardeoordeel over het concept, maar een constatering van dubbeling; de betekenis en de conditiemetinginformatie blijven behouden. Bij het mappen wordt per klasse ook vastgesteld of die functioneel is (wat doet het?) of technisch (waaruit bestaat het?).
+De klassen uit beide standaarden worden veel gebruikt in beheer en assetmanagement. Ze overlappen sterk, maar hun definities en benamingen sluiten niet op elkaar aan. De integratie verloopt in twee fasen: eerst worden de klassen van beide standaarden op elkaar **gemapt** (welke klassen horen bij elkaar?), daarna worden ze waar mogelijk **geïntegreerd** (samengevoegd tot één set). Waar volledige integratie niet mogelijk is, worden de klassen op elkaar afgestemd. De mapping kan ook laten zien dat een NEN 2767-4-concept al volledig gedekt wordt door een (beter) IMBOR-concept: dan kan de NEN-term vervallen of opgaan in die IMBOR-klasse. Dat is geen waardeoordeel over het concept, maar een constatering van dubbeling; de betekenis en de conditiemetinginformatie blijven behouden. Bij het mappen wordt per klasse ook vastgesteld of die functioneel is (wat doet het?) of technisch (waaruit bestaat het?).
 
 >Binnen IMBOR worden de klassen voorzien van: mogelijke vaste informatiebehoeften (gegevens die niet vaak wijzigingen) in de context van beheer openbare ruimte'. Dit gebeurt met name in de vorm van attributen en relaties. Binnen de NEN2767-4 worden de klassen vooral gebruikt om conditiemetingen (gegevens met een meer dynamisch karakter) aan te hangen. _Hoewel dit voor de respectievelijke standaarden erg belangrijk is, is het voor dit project minder van belang._ Hier ligt de focus op de _klassen zelf_, niet zozeer de gegevens over de klassen.
 {: .notice--warning}
 
 ### Een Uniforme Technische Decompositie (UTD) in IMBOR, herzien volgens NEN 2660
-De in-scope klassen in IMBOR krijgen een **Uniforme Technische Decompositie (UTD)** die gebaseerd is op NEN 2767-4. Deze decompositie is primair bedoeld voor conditiemeting binnen assetmanagement, maar is breder bruikbaar. "Uniform" betekent dat de decompositie eenduidig en op één manier wordt toegepast; het sluit niet uit dat er naast deze UTD ook andere, anders-georiënteerde decomposities bestaan. De driedeling Beheerobject-Element-Bouwdeel uit NEN 2767-1 blijft daarbij behouden als indeling in niveaus. De brondecompositie bevat weeffouten in de modellering. Die worden gecorrigeerd:
+Het resultaat van dit traject is een herziene versie van de NEN 2767-4-decompositie: de **Uniforme Technische Decompositie (UTD)**. De UTD vervangt de huidige NEN 2767-4-decompositie; de weeffouten in de huidige versie worden daarin gecorrigeerd. Deze decompositie is primair bedoeld voor conditiemeting binnen assetmanagement, maar is breder bruikbaar. "Uniform" betekent dat de decompositie eenduidig en op één manier wordt toegepast; het sluit niet uit dat er naast deze UTD ook andere, anders-georiënteerde decomposities bestaan. De driedeling Beheerobject-Element-Bouwdeel uit NEN 2767-1 blijft daarbij behouden als indeling in niveaus. De brondecompositie bevat weeffouten in de modellering. Die worden gecorrigeerd:
 - Specialisaties gemodelleerd als decompositie. Veel 'decomposities' zijn in werkelijkheid specialisaties. Een voorbeeld is "Kabel hasPart Signaalkabel". Dat is een specialisatierelatie (`subClassOf`) en geen 'onderdeel van'-relatie.
 - Groeperingen gemodelleerd als decompositie. Een term als "Bebording en bewegwijzering" verwijst niet naar één individueel ding maar naar een verzameling (`hasMember`), geen `hasPart`.
 - Soms een functioneel-technische overgang. In veel gevallen is element→bouwdeel gewoon een zuivere `hasPart` tussen twee aanwijsbare objecten. Alleen waar een écht puur functioneel element door technische bouwdelen wordt geïmplementeerd, is het een implementatierelatie (`isImplementedBy`). Dat is de uitzondering, niet de regel.
@@ -38,7 +38,7 @@ De in-scope klassen in IMBOR krijgen een **Uniforme Technische Decompositie (UTD
 
 ### Samenhang en werkwijze
 
-De twee onderdelen hangen direct met elkaar samen. De inhoudelijke werkgroepen beoordelen de klassen (de taxonomie) én stellen met die klassen als bouwblokken de UTD samen in drie niveaus. Daarbij kan bijvoorbeeld blijken dat een klasse die nu als element is opgenomen, eigenlijk technisch van aard is en dus op het niveau van bouwdeel thuishoort. Het omgekeerde kan ook. Hoe die UTD in de IMBOR-taxonomie overerft, wordt nader bepaalt door de modelleur in stap 6 (zie U8).
+De twee onderdelen hangen direct met elkaar samen. De inhoudelijke werkgroepen beoordelen de klassen (de taxonomie) én stellen met die klassen als bouwblokken de UTD samen in drie niveaus. Daarbij kan bijvoorbeeld blijken dat een klasse die nu als element is opgenomen, eigenlijk technisch van aard is en dus op het niveau van bouwdeel thuishoort. Het omgekeerde kan ook. Bij zo'n verschuiving worden de relaties en de conditiemetinginformatie altijd meeverlegd, zodat er geen gaten ontstaan (zie U7 en stap 3). Hoe die UTD in de IMBOR-taxonomie overerft, wordt nader bepaalt door de modelleur in stap 6 (zie U8).
 
 ---
 
@@ -46,7 +46,7 @@ De twee onderdelen hangen direct met elkaar samen. De inhoudelijke werkgroepen b
 
 Met dit project streven we naar:
 
-*Één eenduidige set klassen in IMBOR, waar mogelijk geïntegreerd met NEN 2767-4 en anders daarop afgestemd; een Uniforme Technische Decompositie (UTD) voor conditiemeting binnen assetmanagement, opgenomen in IMBOR, gebaseerd op NEN 2767-4 en gemodelleerd volgens NEN 2660.*
+*Één eenduidige set klassen in IMBOR, waar mogelijk geïntegreerd met NEN 2767-4 en anders daarop afgestemd; een Uniforme Technische Decompositie (UTD) voor conditiemeting binnen assetmanagement, opgenomen in IMBOR, gebaseerd op NEN 2767-4 en gemodelleerd op basis van NEN 2660-2.*
 
 Op deze manier kunnen we bij de uitwisseling van assetgegevens voor conditiemeting zo veel mogelijk dezelfde klassen en dezelfde structuur gebruiken.
 
@@ -63,6 +63,7 @@ Dit valt buiten de scope van dit project. Het resultaat van dit project, eenduid
 ### Terminologie
 We gebruiken deze termen consistent in dit project:
 
+- **NEN 2767-niveaus**: NEN 2767-1 deelt assets in drie niveaus in. Een **beheerobject** is een afgebakende eenheid met een eigen gebruiksfunctie (bijv. viaduct, weg). Een **element** is een deel daarvan, onderscheiden op functie (bijv. geleideconstructie, verharding). Een **bouwdeel** is weer een deel van een element, onderscheiden op samenstelling of constructiewijze (bijv. leuning, deklaag); op dit niveau worden gebreken en conditiescores vastgelegd.
 - **(bron)concept**: een te beoordelen eenheid uit NEN 2767-4 (een beheerobject, element of bouwdeel) of IMBOR. Neutraal: het zegt nog niets over de uitkomst.
 - **klasse**: een concept kan een klasse worden na classificatie in IMBOR, of een bestaande IMBOR-klasse.
 - **classificatie / classificeren**: een (bron)concept indelen onder de juiste klasse.
@@ -90,7 +91,7 @@ Deze uitgangspunten zijn de houvast voor het gehele project.
 
 - **U3: Classificeren op een dimensie is optioneel (NEN 2660-2 §6.6).** Is een dimensie niet relevant of niet eenduidig te bepalen, dan volstaat het generieke concept (`FysiekObject`) zonder keuze. Forceer geen keuze waar die niets toevoegt, dat levert schijnnauwkeurigheid op. _Noteer een onbepaalde dimensie wel als open vraag._
 - **U4: Betekenis vóór representatie.** Bepaal eerst wát een concept betekent en hoe het zich tot een IMBOR-klasse verhoudt; kies pas daarna hoe je het modelleert. Zo voorkom je dat een modelleergemak (bv. "geen eigen attributen") een betekenisoordeel vervangt.
-- **U5: Taxonomie vóór decompositie.** Bepaal eerst welke klassen er zijn en pas daarna hoe ze samenhangen. Hiermee importeren we de modelleringsfouten uit de NEN 2767-4-decompositie niet mee in IMBOR, en wordt de herziene decompositie een resultaat op basis van bewijs in plaats van een overname.
+- **U5: Taxonomie vóór decompositie.** Bepaal eerst welke klassen er zijn en pas daarna hoe ze samenhangen. Hiermee importeren we de modelleringsfouten uit de NEN 2767-4-decompositie niet mee in IMBOR, en wordt de herziene decompositie een resultaat op basis van de NEN2660-2 in plaats van een overname.
 - **U6: De 'conditiemeting-payload' blijven herleidbaar.** Belang, Materiaalsoort en Gebrek (die noemen we payload) moeten na de herinrichting een geldig ankerpunt hebben. Elke wijziging aan een concept of relatie krijgt daarom een expliciete payload-bestemming (stap 3).
 - **U7: De UTD blijft compleet op drie niveaus.** De decompositie Beheerobject-Element-Bouwdeel blijft een complete, consistente driedeling: er mogen geen gaten op enig niveau ontstaan. Elke wijziging aan een concept (verschuiven, samenvoegen, algemener maken, vervallen) is pas afgerond wanneer de betrokken relaties zijn meeverlegd en de conditiemetinginformatie is gecontroleerd en waar nodig aangepast.
 - **U8: Werkgroepen bouwen UTD, modelleur bepaalt integratie.** Werkgroepen stellen eerst de IMBOR-klassen vast en gebruiken die als bouwblokken voor de UTD (drie niveaus). Ze houden vooralsnog **geen rekening met overerving**; de modelleur beslist in stap 5 en/of 6 of de UTD met overerving integreert of separaat blijft.
@@ -100,6 +101,8 @@ Deze uitgangspunten zijn de houvast voor het gehele project.
 ## 4. Het proces in zes stappen
 
 We werken van eenvoudig naar complex: eerst kijken we alleen naar de losse concepten (welke klassen zijn het?), en pas daarna naar de decompositie eromheen (hoe hangen ze samen?). Zo nemen we de modelleringsfouten uit de oude decompositie niet mee IMBOR in (zie U5).
+
+Die volgorde is noodzakelijk: een relatie verbindt altijd twee concepten, en je kunt pas beoordelen of een relatie klopt als beide uiteinden een uitkomst hebben. Daarom beoordeel je eerst alle concepten afzonderlijk (stap 1), en pas daarna de relaties ertussen (stap 2).
 
 | Stap | Wie | Wat gebeurt er |
 |---|---|---|
@@ -163,7 +166,7 @@ Vertrekpunt is hier de **voorgestelde mapping** die je bij de 80-20-lijst kreeg 
 | Partieel overlappend | `skos:closeMatch` | overlap, geen van beide bevat de ander |
 | Geen tegenhanger | n.v.t. | noteer de beoogde plek in de IMBOR-taxonomie |
 
->Bij het beoordelen van de vaststellingen kan ook de 'huidige populatie' (lees: instanties bij asseteigenaren) ook een goede leidraad zijn. Dit wil zeggen: denk bij het beoordelen ook aan de instanties die je nu beheert of vaak tegen komt. Zou je die ook allemaal over één kam kunnen scheren.
+>Bij het beoordelen van de vaststellingen hoef je je niet te beperken tot de letter van de definitie. Ook de 'huidige populatie' (de instanties die je nu beheert of vaak tegenkomt), het praktijkgebruik, de naamgeving en de IMBOR-context zijn toegestane bronnen voor je interpretatie. Leg in het beslis-record vast waarop je interpretatie rust.
 {: .notice--info}
 
 >**Wat stap 1 niet doet**: Geen representatiekeuze (subklasse, verschijningsvorm, vervallen), geen relaties, en niets met `hasPart`. Die beslissingen hebben de decompositie-context uit stap 2 en 3 nodig.
@@ -172,8 +175,6 @@ Vertrekpunt is hier de **voorgestelde mapping** die je bij de 80-20-lijst kreeg 
 ### Stap 2: Decompositie vergelijken
 
 Leg de oude NEN-decompositie over de gemapte concepten (resultaat stap 1) en stel vast **waar het wringt**. Dit is nog signaleren; de beslissingen volgen in stap 3.
-
-**Volgorde: eerst de concepten, dan pas de relaties.** Beoordeel in deze stap eerst *alle* concepten afzonderlijk, en ga daarna pas naar de relaties ertussen. De reden is dat een relatie altijd twee concepten verbindt: je kunt pas vaststellen of die relatie klopt of juist wringt wanneer beide uiteinden een uitkomst hebben. Van elk van de twee concepten moet dus al vaststaan op welk niveau het hoort, wat zijn dimensie is (ruimtelijk vs. reëel, functioneel vs. technisch) en hoe het op IMBOR mapt. Begin je andersom (bij de relaties) dan beoordeel je verbindingen waarvan de uiteinden nog kunnen verschuiven, en dat levert geen betrouwbaar beeld op.
 
 >**Hergebruik als signaal.** Een concept dat onder veel andere concepten hangt, is vrijwel zeker een echte zelfstandige klasse; een concept dat maar op één plek voorkomt, is een kandidaat om te vervallen of een verschijningsvorm te worden.
 {: .notice--info}
@@ -218,7 +219,7 @@ Loop per concept deze lijst af en kies de **eerste** rij die past. Elke keuze is
 {: .notice--info}
 
 ##### Verschijningsvorm i.p.v. klasse
-IMBOR gebruikt een [classificerend attribuut](https://docs.crow.nl/imbor/techdoc/#classificerende-attributen) voor detailleringen van een objecttype die geen eigen informatiebehoefte hebben. In plaats van voor elke variant een aparte klasse te maken, worden de varianten waarden in één lijst bij de klasse. Het algemene classificerende attribuut heet `verschijningsvorm`; daarnaast bestaan objectspecifieke varianten (bijvoorbeeld `constructielaagsoort` op `Constructielaag`). Zo heeft de klasse `Band` een `verschijningsvorm` met waarden als *Trottoirband*, *Opsluitband* en *Parkeerband*.
+IMBOR gebruikt een [classificerend attribuut](https://docs.crow.nl/imbor/techdoc/#classificerende-attributen) voor detailleringen van een objecttype die geen eigen informatiebehoefte hebben. In plaats van voor elke variant een aparte klasse te maken, worden de varianten waarden in één lijst bij de klasse. Het algemene classificerende attribuut heet `verschijningsvorm`; daarnaast bestaan objectspecifieke varianten (bijvoorbeeld `constructielaagsoort` op `Constructielaag`). Zo heeft de klasse `Band` een `verschijningsvorm` met waarden als *Trottoirband*, *Opsluitband* en *Parkeerband*. Conceptueel zijn die waarden ook gewoon subtypes; IMBOR kiest ervoor ze als waarde in een lijst te modelleren om het aantal klassen beheersbaar te houden.
 
 Een NEN 2767-concept kan zo'n waarde worden in plaats van een eigen klasse. Let op: de klasse zelf (bijvoorbeeld `Band`) blijft bestaan en blijft het object dat je vastlegt en inspecteert. Het classificerende attribuut zegt alleen *welke variant* het is; gebreken, conditiescore en onderhoudshistorie blijven aan het object hangen.
 
@@ -258,6 +259,8 @@ Zodra de representatie vaststaat, leg je voor het concept de naam en definitie v
 - **Definieer naar genus-en-differentia:** benoem de ouderklasse plus wat dit concept ervan onderscheidt.
 - **Definitie en classificatie zijn consistent.** De definitie mag niet functioneel geformuleerd zijn als het concept technisch is gemodelleerd (of omgekeerd); ze weerspiegelt de dimensiekeuzes uit stap 1.
 - **Geen conditiemeting-/gebrekentaal in de objectdefinitie.** Houd de inspectiecontext buiten de objectdefinitie.
+- **Geen geometrie in de objectdefinitie.** Een definitie zegt wat het object ís, niet hoe het geografisch is afgebakend; geometrie is slechts een representatie van het object.
+- **Locatie of positie is context, geen definitiekenmerk.** Een definitie zegt wat het object ís, niet waar het staat. Vermeld positie alleen als die echt onderscheidend is (bijv. "bovenliggend" bij een constructielaag). De voorbeelden in hoofdstuk 6 moeten op dit punt nog worden getoetst.
 
 #### Implicaties voor conditiemeting
 
