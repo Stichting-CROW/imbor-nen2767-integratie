@@ -316,7 +316,20 @@ In de laatste stap nemen de **IMBOR-modelleurs** de gevalideerde UTD uit stap 5 
 
 ## 5. 'Invulformulier' inhoudelijke werkgroepen
 
-***NADER UIT TE WERKEN...***
+De werkgroep methodiek levert een duidelijke procedure aan, aan de inhoudelijke werkgroepen ter beoordeling. 
+
+### Beslisflow in beeld
+
+De diagrammen hieronder tonen de wizard die je per concept doorloopt: stap 1 (bepalen wat het is), stap 2 (decompositie beoordelen) en stap 3 (decompositie herzien). De uitvoer is een beslis-record.
+
+![Stap 1: Bepalen wat het is](assets/diagrammen/Stap1.drawio.svg){: .align-center}
+
+![Stap 2: Decompositie beoordelen](assets/diagrammen/Stap2.drawio.svg){: .align-center}
+
+![Stap 3a en 3b: Decompositie herzien](assets/diagrammen/Stap3a+b.drawio.svg){: .align-center}
+
+### Prototype invulformulier [ToDo]
+>***NADER UIT TE WERKEN...***
 
 - Beslis-record per concept **en per voorkomen**. Leg per concept het eindresultaat van de stappen vast, maar nooit los van zijn context. Toon minimaal: het concept en zijn identificatie, de definitie, het NEN-niveau (beheerobject/element/bouwdeel), het bijbehorende element of beheerobject, het relatietype, en bij een wijzigingsvoorstel de voorgestelde nieuwe situatie. Beoordeel een concept dat onder meerdere gehelen hangt per voorkomen. Presenteer dit als een vaste tabel (zoals hieronder), zodat een reviewer in één oogopslag ziet wat het is én wat een wijziging raakt; die kan later machineleesbaar worden geëxporteerd (bijvoorbeeld als SSSOM-mapping).
 
@@ -336,16 +349,6 @@ In de laatste stap nemen de **IMBOR-modelleurs** de gevalideerde UTD uit stap 5 
 - **Plek voor ruimte-relaties.** Het template krijgt een veld om een ruimtelijke relatie vast te leggen als de werkgroep die tegenkomt: `isBegrensdDoor` of `bevat` naar een bestaand ruimtelijk concept in IMBOR (zie U2-afbakening). De werkinstructie legt uit dat dit géén `hasPart` is, de ruimte geen UTD-concept maakt en geen payload aan de ruimte-kant hangt.
 - **Bijvangst voor connecties.** Komt de werkgroep koppelingen tussen assets tegen die niet in de decompositie horen (bijvoorbeeld viaduct-lichtmast-kabel-kast), dan is daar een aparte plek voor in het template. De werkinstructie maakt hierbij expliciet dat de werkgroepen **géén systemen modelleren**: dit zijn orthogonale relaties die mogelijk in IMBOR landen, maar buiten de UTD-decompositie vallen. Het dient alleen om deze bijvangst niet te verliezen.
 - **Schrijfregels namen en definities.** Verwerk de bestaande schrijfregels voor NEN 2767-4 (namen en definities) in de werkinstructie, afgestemd op §3 (uitgangspunten) en de regels voor naam en definitie in stap 3.
-
-### Beslisflow in beeld
-
-De diagrammen hieronder tonen de wizard die je per concept doorloopt: stap 1 (bepalen wat het is), stap 2 (decompositie beoordelen) en stap 3 (decompositie herzien). De uitvoer is een beslis-record.
-
-![Stap 1: Bepalen wat het is](assets/diagrammen/Stap1.drawio.svg){: .align-center}
-
-![Stap 2: Decompositie beoordelen](assets/diagrammen/Stap2.drawio.svg){: .align-center}
-
-![Stap 3a en 3b: Decompositie herzien](assets/diagrammen/Stap3a+b.drawio.svg){: .align-center}
 
 ---
 
