@@ -336,13 +336,13 @@ In de laatste stap nemen de **IMBOR-modelleurs** de gevalideerde UTD uit stap 5 
 
 ### Beslisflow in beeld
 
-Het diagram hieronder toont de wizard die je per concept doorloopt: scherm 1 (wat is het), scherm 2 (waar wringt het), scherm 3 (wat doen we ermee) en scherm 4 (de drie regels die altijd gelden). De uitvoer is een beslis-record.
+De diagrammen hieronder tonen de wizard die je per concept doorloopt: stap 1 (bepalen wat het is), stap 2 (decompositie beoordelen) en stap 3 (decompositie herzien). De uitvoer is een beslis-record.
 
-{::nomarkdown}
-<pre class="mermaid">
-{% include_relative assets/diagrammen/beslisflow.mmd %}
-</pre>
-{:/}
+![Stap 1: Bepalen wat het is](assets/diagrammen/Stap1.drawio.svg){: .align-center}
+
+![Stap 2: Decompositie beoordelen](assets/diagrammen/Stap2.drawio.svg){: .align-center}
+
+![Stap 3a en 3b: Decompositie herzien](assets/diagrammen/Stap3a+b.drawio.svg){: .align-center}
 
 ---
 
