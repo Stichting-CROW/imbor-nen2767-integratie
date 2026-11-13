@@ -295,7 +295,8 @@ De vier inhoudelijke werkgroepen leveren **beslis-records**, geen kant-en-klare 
 Het samengevoegde voorstel wordt getoetst voordat het definitief wordt. Dat gebeurt op twee manieren, die samen de kwaliteit borgen:
 
 - **Machinematig (modelleur).** Toets de samengevoegde decompositie tegen de NEN 2660-patronen: elkaar uitsluitende dimensies waar ze zijn toegepast (U2), een geldig relatietype per verbinding (`hasPart` / `isImplementedBy` / `subClassOf` / `isBegrensdDoor`) en definities naar genus-en-differentia. En controleer dat elk payload-element (belang, materiaalsoort, gebrek) een geldig ankerpunt houdt en dat de decompositie compleet is op drie niveaus (U7).
-- **Inhoudelijk (inhoudelijke werkgroepen).** De werkgroep Methodiek legt het voorstel terug aan de inhoudelijke werkgroepen: kloppen de voorgestelde relaties en de geharmoniseerde definities? 
+- **Inhoudelijk (inhoudelijke werkgroepen).** De werkgroep Methodiek legt het voorstel terug aan de inhoudelijke werkgroepen: kloppen de voorgestelde relaties en de geharmoniseerde definities?
+- **Vroegtijdig bijsturen waar nodig.** Ziet de modelleur in deze stap (of al in stap 4) dat de UTD structureel niet goed in de IMBOR-taxonomie rijgt, dan bespreekt hij dat al met de werkgroepen. De formele keuze over integratie of separaat houden valt pas in stap 6, maar de voorbereiding daarvan hoeft niet te worden uitgesteld.
 
 >**Resultaat:** één samengevoegde én gevalideerde decompositie met mappings, klaar om in stap 6 op IMBOR aan te haken.
 {: .notice--info}
