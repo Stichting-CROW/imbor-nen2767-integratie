@@ -308,6 +308,7 @@ In de laatste stap nemen de **IMBOR-modelleurs** de gevalideerde UTD uit stap 5 
 - **Integreren, als het eenvoudig rijgt.** Rijgt de UTD met minimale aanpassingen (in IMBOR of in de UTD) netjes in de bestaande structuur, dan integreren we hem, mét overerving door de taxonomie.
 - **Of separaat houden, als de overerving problematisch is.** Geeft de overerving te veel problemen, dan kan worden besloten de UTD separaat te houden, los van de overerving. Die keuze valt hier, op basis van hoe goed de UTD en de IMBOR-taxonomie op elkaar aansluiten.
 - **Opnemen in IMBOR.** Verwerk de uitkomst in IMBOR volgens het reguliere IMBOR-beheer- en releaseproces.
+- **IMBOR zelf aanpassen waar nodig.** Naast het integreren van de UTD kunnen de IMBOR-modelleurs in deze stap ook aanpassingen aan IMBOR zelf doen: nieuwe klassen toevoegen waar die ontbraken, definities corrigeren, of de bestaande decompositie aanvullen. De werkgroepen hebben dat in stap 1 en 3 gesignaleerd; hier wordt het uitgevoerd.
 
 >Dit is het moment waarop de keuze valt die tot nu toe bewust openstond (zie U8): integreren met overerving, of de UTD separaat houden. De werkgroepen hebben die afweging niet hoeven maken; de modelleur bepaalt hier de uiteindelijke verhouding tussen de UTD en de IMBOR-taxonomie.
 {: .notice--warning}
