@@ -50,10 +50,13 @@ Met dit project streven we naar:
 
 Op deze manier kunnen we bij de uitwisseling van assetgegevens voor conditiemeting zo veel mogelijk dezelfde klassen en dezelfde structuur gebruiken.
 
-**Functionele decompositie (buiten scope)**
-In de markt is ook behoefte aan andere decomposities dan die voor conditiemeting, bijvoorbeeld voor Systems Engineering (SE), voor het ontwerpen en bouwen van assets en voor beslissingen over amoveren. Daarvoor is een diepere functionele decompositie nodig. Een functionele decompositie die geschikt is voor SE bestaat nog niet. Ze heeft waarschijnlijk meer dan drie lagen en verschilt per asset en/of organisatie.
-Via de elementen bevat IMBOR straks al een beperkte functionele laag voor conditiemeting. De diepere functionele decompositie voor SE nemen we niet op in IMBOR. Die kan wel worden vastgelegd in een aparte ontologie die de klassen en hun definities uit IMBOR overneemt.
+**Functionele decompositie voor Systems Engineering (buiten scope)**
+Systems Engineering (SE) vraagt naast een technische decompositie ook een functionele decompositie: welke functies moet het systeem vervullen, en hoe hangen die samen? Die functionele decompositie is dieper dan de UTD en verschilt per asset en/of organisatie. Een dergelijke decompositie bestaat nog niet in IMBOR.
+
+De UTD is de technische decompositie die ook voor SE bruikbaar is (voor conditiemeting en instandhouding). De functionele laag die SE daarnaast nodig heeft, nemen we niet op in dit project. Die kan later worden vastgelegd in een aparte ontologie die de klassen en definities uit IMBOR overneemt.
+
 In zo'n ontologie worden de kenmerken uit NEN 2767 gekoppeld aan functies. De kernvraag is: welke functie komt in gevaar als een conditie niet voldoet? Roest is bijvoorbeeld pas een probleem als het 'afdragen van krachten' in gevaar komt.
+
 Dit valt buiten de scope van dit project. Het resultaat van dit project, eenduidige klassen en een correct gemodelleerde decompositie, kan later wel dienen als basis voor zo'n vervolgstap.
 
 ---
@@ -244,6 +247,8 @@ Per bestaande `hasPart`-relatie is er één uitkomst uit de onderstaande tabel v
 
 >`isBegrensdDoor`/`bevat` niet verwarren met `heeftBegrenzing`/`hasBoundary`, dat naar geometrie wijst.
 {: .notice--warning}
+
+**Raakvlakken naast de UTD (optioneel).** Sommige bouwdelen zijn inherent een raakvlak: een kabel tussen lichtmast en voedingskast, een ophanging, een bevestiging, een oplegging. Die verbinding is geen `hasPart` maar een technisch raakvlak tussen twee objecten. Leg dat vast met `isVerbondenMet` (of expliciete van/naar-relaties). Dit staat **naast de UTD**: het is geen onderdeel van de decompositie zelf, maar een aanvulling die in IMBOR kan worden opgenomen. Het is niet de primaire focus van dit project; wie het niet nodig heeft, kan het negeren.
 
 **Functioneel en technisch sluiten elkaar niet uit.** Een object kan beide aspecten hebben (functie-inhoud dragen én technisch aanwijsbaar zijn), dus niet elke element→bouwdeel-overgang is een implementatierelatie: `isImplementedBy` geldt alleen waar het element écht puur functioneel is. Een vermoeden dat een relatie "iets anders" is, sluit de has-part niet automatisch uit. Welke relatie past, vergt eigen afweging.
 
