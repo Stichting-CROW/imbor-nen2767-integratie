@@ -155,6 +155,8 @@ Verwar de *functionele dimensie* (hier, per concept) niet met de *rol* van een n
 
 *Bij twijfel:* laat de dimensie open (net zoals vaststelling 1).
 
+**Let op de samenhang tussen vaststelling 1 en 2.** Een ruimtelijk concept is vaak ook functioneel: de ruimte bestaat dan bij de gratie van een functie (een rijstrook is een ruimte omdat voertuigen er moeten rijden). Dat hoeft niet altijd zo te zijn: een tankinhoud is een ruimtelijk gebied dat technisch wordt bepaald door de wand van de tank. Maar als je bij vaststelling 1 "ruimtelijk" hebt gekozen, is het dus goed om extra alert te zijn op de functie-kant bij vaststelling 2. Een ruimtelijk én functioneel concept hoort niet als technisch object in de UTD thuis (zie de afbakening in U2).
+
 #### Vaststelling 3: Bestaat het al in IMBOR?
 Vertrekpunt is hier de **voorgestelde mapping** die je bij de 80-20-lijst kreeg (zie "Waar we beginnen"): beoordeel en verifieer die, in plaats van vanaf nul te zoeken. Zoek het dichtstbijzijnde IMBOR-concept en bepaal de betekenisrelatie. Kijk daarbij naar **welke objecten eronder vallen**, niet naar welke attributen het concept heeft:
 
