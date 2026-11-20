@@ -7,3 +7,7 @@ main:
     url: /assets/invultemplate-werkgroepen.xlsx
   - title: "IMBOR documentatie"
     url: https://docs.crow.nl/imbor
+  - title: "Viewer NEN 2767-4"
+    url: https://nen.semantic-treehouse.nl/canvas?panes=concept_tree%3ATaxonomyVersion_9c74967b-9ff9-4ed3-a02f-e1c75c905115%3A839vr0%3Aprimary
+  - title: "Viewer IMBOR"
+    url: https://imbor-viewer.apps.crow.nl/
