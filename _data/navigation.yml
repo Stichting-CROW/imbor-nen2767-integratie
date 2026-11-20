@@ -3,5 +3,7 @@
 main:
   - title: "Commentaar geven"
     url: https://github.com/Stichting-CROW/imbor-nen2767-integratie/blob/main/index.md
+  - title: "Invultemplate"
+    url: /assets/invultemplate-werkgroepen.xlsx
   - title: "IMBOR documentatie"
     url: https://docs.crow.nl/imbor
