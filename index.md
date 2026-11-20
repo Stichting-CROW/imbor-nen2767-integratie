@@ -121,6 +121,8 @@ Die volgorde is noodzakelijk: een relatie verbindt altijd twee concepten, en je 
 2. **de 80-20-lijst**, die bepaalt de scope: per werkgroep de geselecteerde beheerobjecten, elementen en bouwdelen, met hun definities en hun onderlinge relaties. Die lijst is de werkvoorraad, het vertrekpunt voor stap 1 en het vergelijkingspunt voor stap 2,
 3. **een voorgestelde mapping** op IMBOR per concept. Dat voorstel is een *educated guess* op basis van expert judgement en praktijkervaring; de werkgroep hoeft dus niet vanaf nul te mappen, maar **beoordeelt en verifieert** het voorstel in stap 1. Het is een hulpmiddel, geen vaststaand resultaat.
 
+De 80-20-lijst en de voorgestelde mapping zijn samengebracht in het [invultemplate](assets/invultemplate-werkgroepen.xlsx) (zie hoofdstuk 5): per werkgroep de in-scope concepten, met de voorgestelde mapping ernaast en kolommen om stap 1 in te vullen.
+
 >*De oude NEN 2767-4-decompositie en een eventueel al bestaande decompositie in IMBOR zijn met een ander doel en vanuit een ander perspectief gemaakt.* We zetten ze naast elkaar, niet door elkaar. Hoe ze zich uiteindelijk tot elkaar verhouden, bepalen de IMBOR-modelleurs later (stap 6).
 {: .notice--warning}
 
