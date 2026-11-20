@@ -337,27 +337,29 @@ De diagrammen hieronder tonen de wizard die je per concept doorloopt: stap 1 (be
 
 ![Stap 3a en 3b: Decompositie herzien](assets/diagrammen/Stap3a+b.drawio.svg){: .align-center}
 
-### Prototype invulformulier [ToDo]
->***NADER UIT TE WERKEN...***
+### Invultemplate (stap 1)
 
-- Beslis-record per concept **en per voorkomen**. Leg per concept het eindresultaat van de stappen vast, maar nooit los van zijn context. Toon minimaal: het concept en zijn identificatie, de definitie, het NEN-niveau (beheerobject/element/bouwdeel), het bijbehorende element of beheerobject, het relatietype, en bij een wijzigingsvoorstel de voorgestelde nieuwe situatie. Beoordeel een concept dat onder meerdere gehelen hangt per voorkomen. Presenteer dit als een vaste tabel (zoals hieronder), zodat een reviewer in één oogopslag ziet wat het is én wat een wijziging raakt; die kan later machineleesbaar worden geëxporteerd (bijvoorbeeld als SSSOM-mapping).
+Voor stap 1 is een [invultemplate beschikbaar](assets/invultemplate-werkgroepen.xlsx) (Excel). Het template bevat per werkgroep de in-scope elementen en bouwdelen (uit de reeds voorbereide 80-20-lijst), met daarbij de voorgestelde mapping als vertrekpunt toegevoegd. De werkgroepen doorlopen per concept de drie vaststellingen (ruimtelijk/reëel, functioneel/technisch, bestaat het al in IMBOR?) en vullen hun oordeel in. Een toelichtingsblad in het bestand legt de werkwijze en de kleurcodering uit.
 
-  *Voorbeeld (bouwdeel):*
+### Van invultemplate naar beslis-record
 
-  | Concept | Element | Definitie |
-  |---|---|---|
-  | Aanstraalverlichting | Bebording en bewegwijzering (statisch) | Armatuur met lichtbron voor het zichtbaar maken van objecten en/of installaties |
-  | Aanstraalverlichting | Dynamische bewegwijzering en informatiesystemen | idem |
-  | Aanstraalverlichting | Objectverlichting | idem |
+Het invultemplate hierboven dekt **stap 1**: per concept en per voorkomen de twee dimensies en de betekenisrelatie naar IMBOR. Dat is bewust het eerste, eenvoudigste deel van het beslis-record.
 
-- De werkgroepen leveren beslis-records, geen kant-en-klare modelwijzigingen. Het samenvoegen (stap 4) en de controle en terugkoppeling (stap 5) zijn werk van de modelleur namens de werkgroep Methodiek, in samenwerking met de inhoudelijke werkgroepen.
-- ...
+Het volledige **beslis-record** groeit mee met het proces. Na stap 2 en 3 komen daar per voorkomen bij: de geconstateerde wrijving (stap 2) en de uiteindelijke representatie, het relatietype en de eventuele nieuwe naam en definitie (stap 3). Omdat een concept onder meerdere gehelen kan hangen, blijft de regel: **beoordeel per voorkomen**, zodat een reviewer ziet wat een wijziging precies raakt. 
 
-**Nog mee te nemen bij de uitwerking van dit hoofdstuk (template + werkinstructie):**
 
-- **Plek voor ruimte-relaties.** Het template krijgt een veld om een ruimtelijke relatie vast te leggen als de werkgroep die tegenkomt: `isBegrensdDoor` of `bevat` naar een bestaand ruimtelijk concept in IMBOR (zie U2-afbakening). De werkinstructie legt uit dat dit géén `hasPart` is, de ruimte geen UTD-concept maakt en geen payload aan de ruimte-kant hangt.
-- **Bijvangst voor connecties.** Komt de werkgroep koppelingen tussen assets tegen die niet in de decompositie horen (bijvoorbeeld viaduct-lichtmast-kabel-kast), dan is daar een aparte plek voor in het template. De werkinstructie maakt hierbij expliciet dat de werkgroepen **géén systemen modelleren**: dit zijn orthogonale relaties die mogelijk in IMBOR landen, maar buiten de UTD-decompositie vallen. Het dient alleen om deze bijvangst niet te verliezen.
-- **Schrijfregels namen en definities.** Verwerk de bestaande schrijfregels voor NEN 2767-4 (namen en definities) in de werkinstructie, afgestemd op §3 (uitgangspunten) en de regels voor naam en definitie in stap 3.
+**Wat nu al kan worden toegevoegd aan het template** (optioneel, als de werkgroep het tegenkomt):
+
+- **Ruimte-relatie.** Bij een ruimtelijk concept de koppeling `isBegrensdDoor` of `bevat` naar een bestaand ruimtelijk concept in IMBOR (zie U2-afbakening). Dit is géén `hasPart`, maakt de ruimte geen UTD-concept en hangt geen payload aan de ruimte-kant. Het template heeft hiervoor een aparte (optionele) kolom.
+- **Bijvangst connecties.** Raakvlakken tussen assets die niet in de decompositie horen (bijvoorbeeld een kabel tussen lichtmast en kast). Noteer die in de aparte (optionele) kolom zodat ze niet verloren gaan. De werkgroepen modelleren **géén systemen**: dit zijn relaties die mogelijk in IMBOR landen, maar buiten de UTD-decompositie vallen.
+
+**Wat pas in stap 2 en 3 aan het beslis-record wordt toegevoegd:**
+
+- De geconstateerde **wrijving** (stap 2).
+- Het **relatietype** (`hasPart`, `subClassOf`, `hasMember`, `isImplementedBy`, ...) en de **representatie** (eigen klasse, verschijningsvorm, vervallen) met de voorgestelde nieuwe naam en definitie (stap 3).
+- De **schrijfregels** voor namen en definities worden onderdeel van de werkinstructie bij stap 3, afgestemd op §3 (uitgangspunten) en de regels voor naam en definitie in stap 3.
+
+De werkgroepen leveren beslis-records, geen kant-en-klare modelwijzigingen. Het samenvoegen (stap 4) en de controle en terugkoppeling (stap 5) zijn werk van de modelleur namens de werkgroep Methodiek, in samenwerking met de inhoudelijke werkgroepen.
 
 ---
 
